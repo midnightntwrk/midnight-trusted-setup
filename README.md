@@ -4,7 +4,7 @@ This is the official repository for the trusted-setup ceremony of the
 [Midnight Network](https://midnight.network/).
 
 The outcome of this ceremony will be a *powers-of-tau* structured reference
-string (SRS) over BLS12-381. (See our [wiki](../../wiki) for more details.)
+string (SRS) over BLS12-381.
 
 > [!IMPORTANT]  
 > This ceremony is currently ongoing and you can be a participant! See the
@@ -31,7 +31,7 @@ cp ./target/release/srs_utils ./
 ## Verify the latest SRS
 
 The latest SRS can be found at [LatestSRS], its size is `3.1GB`. You can find the SHA256sum
-of all contributions in `PARTIPANTS.md`.
+of all contributions in `PARTICIPANTS.md`.
 
 After downloading it, you may verify that it is structurally correct with
 `./srs_utils <SRS_PATH> verify-structure`.

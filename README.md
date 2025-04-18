@@ -37,8 +37,8 @@ After downloading it, you may verify that it is structurally correct with
 `./srs_utils <SRS_PATH> verify-structure`.
 You may also verify the chain of Schnorr proofs that link it to the
 Filecoin SRS with `./srs_utils <SRS_PATH> verify-chain`.
-This chain starts at the Filecoin SRS [G1 point](../../blob/master/filecoin_srs_g1_point).
-See our [wiki](../../wiki) for details on how to verify the validity of this point.
+This chain starts at the Filecoin SRS [G1 point](../../blob/main/filecoin_srs_g1_point).
+See our [wiki](../../blob/main/wiki.md) for details on how to verify the validity of this point.
 
 ## Participate
 
@@ -77,4 +77,4 @@ sftp -v <YOUR_GITHUB_USERNAME>@srs.stg.midnight.tools
 put PATH_TO_YOUR_SRS .
 ```
 
-[LatestSRS]: #TBD
+[LatestSRS]: https://srs.midnight.network/current_srs/challenge19_2p25

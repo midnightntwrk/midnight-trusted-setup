@@ -102,4 +102,4 @@ For verification purposes, participants and verifiers of Midnight's setup ceremo
 
 ./srs_utils <path-to-`phase1radix2m19`-file> extract-filecoin-g1-point
 
-[latest-SRS]: https://srs.midnight
+[latest-SRS]: https://srs.midnight.network/current_srs/challenge19_2p25

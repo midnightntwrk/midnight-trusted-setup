@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     if: github.event.pull_request.draft == false
-    name: Test on ${{ matrix.os }}
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
@@ -56,8 +56,5 @@ jobs:
           components: clippy
           override: false
       - name: Run Clippy
-        uses: actions-rs/clippy-check@b5b5f21f4797c02da247df37026fcd0a5024aa4d
-        continue-on-error: true
-        with:
-          name: Clippy
-          args: --all-targets --all-features -- -Dwarnings
+        run: cargo clippy --all-targets --all-features -- -D warnings
+

@@ -1,3 +1,4 @@
+# Midnight trusted setup
 Welcome to the wiki for the trusted Setup of PLONK over BLS12-381!
 
 We build upon the last output file `challenge19` of Filecoin's `perpetualpowersoftau` ceremony (for the Groth16 proving system) over BLS12-381 described [here](https://github.com/arielgabizon/perpetualpowersoftau). The `challenge19` file is hosted [via IPFS](https://trusted-setup.filecoin.io/phase1/).
@@ -11,16 +12,16 @@ from the `challenge19` file and verified their structural integrity. We discarde
 
 Please see [Verifying the extraction from Filecoin's `challenge19`](#verifying-the-extraction-from-filecoins-srs) for further verification instructions.
 
-# Accessing the file server
+## Accessing the file server
 The Midnight team hosts a file server for retrieving and uploading updated SRS files. Furthermore, after the end of Midnight's setup ceremony, the server stores the most recent update of the SRS for long-term retrieval.
 
 There is one public link to the [latest-SRS].
 
-# Instructions on the CLI tool
+## Instructions on the CLI tool
 
 The following guidelines show how to retrieve, build and use the CLI script under Linux/Bash.
 
-## Building the CLI tool from source
+### Building the CLI tool from source
 Clone the repository, build the script, and copy the binary:
 
 ```
@@ -31,8 +32,8 @@ cargo build --release && cp ./target/release/srs_utils ./
 
 ```  
 
-## Using the CLI tool
-### Updating an existing SRS
+### Using the CLI tool
+#### Updating an existing SRS
 
 Each participant of the ceremony adds his/her own randomness to the final SRS. From the root folder of the repo, run:
 
@@ -42,7 +43,7 @@ Each participant of the ceremony adds his/her own randomness to the final SRS. F
 
 ```
 
-### Details on the update process
+#### Details on the update process
 After updating an existing SRS, two files have been created:
 
 * The new/updated SRS `srs<idx>` in the same directory as the old SRS. The new index `idx` is derived from the number of previous update proofs in the `/proofs` folder. For ease of use, we use a canonical naming of SRS files and updates proofs. The old SRS can bear whatever name the user chooses. However, the resulting new SRS `srs<idx>` will automatically follow the canonical naming scheme.
@@ -51,7 +52,7 @@ After updating an existing SRS, two files have been created:
 
 For collecting randomness, each participant will be prompted to input random text with your keyboard. This random input is mixed (via the `Blake2b512` hash function) with randomness collected from the underlying OS. The resulting hash value is used for seeding the `ChaCha20` RNG, whereby the seeded RNG aids in selecting a random scalar in the scalar field of `BLS12-381`. This random scalar is a participant's contribution of randomness to the final SRS.
 
-### Verifying the structure of an SRS
+#### Verifying the structure of an SRS
 
 ```
 
@@ -59,7 +60,7 @@ For collecting randomness, each participant will be prompted to input random tex
 
 ```
 
-### Details on the structure of an SRS
+#### Details on the structure of an SRS
 The SRS has a canonical structure:
 
 * the generator in $G_1$ is multiplied by $2^{25}$ consecutive powers $1,\tau^1,\ldots,\tau^{2^{25}-1}$ of a scalar, and
@@ -67,7 +68,7 @@ The SRS has a canonical structure:
 
 These $2^{25}+2$ points on the curve BLS12-381 constitute an SRS for PLONK. Scalars are taken from the scalar field of BLS12-381.
 
-### Verifying the most recent SRS and the corresponding chain of update proofs
+#### Verifying the most recent SRS and the corresponding chain of update proofs
 
 ```
 
@@ -75,8 +76,8 @@ These $2^{25}+2$ points on the curve BLS12-381 constitute an SRS for PLONK. Scal
 
 ```
 
-### Details on the structure of an SRS
-# Creating a Pull Request on GitHub
+#### Details on the structure of an SRS
+## Creating a Pull Request on GitHub
 To attest to a correct update of the SRS, each participant creates a PR containing:
 
 * The update proof of the corresponding update
@@ -92,7 +93,7 @@ sha512sum <path-to-SRS>
 
 ```
 
-# Verifying the Extraction from Filecoin's `challenge19`
+## Verifying the Extraction from Filecoin's `challenge19`
 
 For verifying the chain of updates on top of this initial SRS, we store the first (scaled) $G_1$ point $[\tau]_1$ from Filecoin`s `challenge19` in the file `filecoin_srs_g1_point`.
 

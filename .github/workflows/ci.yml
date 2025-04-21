@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: actions-rs/toolchain@16499b5e05bf2e26879000db0c1d13f7e13fa3af
+      - uses: actions-rust-lang/setup-rust-toolchain@9399c7bb15d4c7d47b27263d024f0a4978346ba4
         with:
           toolchain: nightly
           override: false
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: actions-rs/toolchain@16499b5e05bf2e26879000db0c1d13f7e13fa3af
+      - uses: actions-rust-lang/setup-rust-toolchain@9399c7bb15d4c7d47b27263d024f0a4978346ba4
         with:
           toolchain: nightly
           override: false
@@ -51,10 +51,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: actions-rs/toolchain@16499b5e05bf2e26879000db0c1d13f7e13fa3af
+      - uses: actions-rust-lang/setup-rust-toolchain@9399c7bb15d4c7d47b27263d024f0a4978346ba4
         with:
+          rust-version: 1.84
           components: clippy
-          override: false
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
 

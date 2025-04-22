@@ -10,7 +10,7 @@ path = "src/main.rs"
 [dependencies]
 blstrs = { git = "https://github.com/davidnevadoc/blstrs", rev = "e6e4518" }
 rand_core = "0.6"
-halo2curves = { version = "0.7.0", features = ["derive_serde"] }
+halo2curves = { version = "0.8.0", features = ["derive_serde"] }
 blake2 = "0.10.6"
 clap = { version = "4.5.26", features = ["derive"] }
 rayon = "1.10.0"

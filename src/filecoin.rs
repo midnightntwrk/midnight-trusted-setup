@@ -63,7 +63,7 @@ pub fn extract_g1_point_from_filecoin_srs(path: &Path, k: usize) {
     );
 
     println!("Converting G1 points from eval form --> coeff form");
-    let omega = Scalar::ROOT_OF_UNITY.pow([(Scalar::S - k as u32) as u64]);
+    let omega = Scalar::ROOT_OF_UNITY.pow([1 << (Scalar::S - k as u32) as u64]);
     best_fft(&mut g1s, omega, k as u32);
 
     let g1_point = g1s[1].to_affine();

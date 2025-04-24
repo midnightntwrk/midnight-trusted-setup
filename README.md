@@ -9,7 +9,7 @@ reference string (SRS) over the BLS12-381 elliptic curve.
 > [!IMPORTANT] This ceremony is currently ongoing and you can be a participant!
 > See the [instructions](#participate) below.
 
-We re-randomize the SRS from the
+The ceremony is based on the
 [Filecoin ceremony](https://trusted-setup.filecoin.io/phase1/), an existing
 powers-of-tau SRS over BLS12-381 used on [Filecoin](https://filecoin.io/)
 and trusted by the Web3 community.
@@ -30,7 +30,7 @@ repository.
 ## Build the CLI
 
 After cloning the repository, build it, and copy the binary to the root
-folder:
+folder of the repository with the commands
 ```sh
 sh cargo build --release 
 cp ./target/release/srs_utils./
@@ -66,10 +66,12 @@ cp ./target/release/srs_utils./
    proof correctly extends the chain of proofs, your PR will be merged and
    the next participant will take over.
 
-> [!WARNING] Participants will be given 24 hours to complete their update
-> process. After this time, their turn may be skipped. This is for the sake
-> of liveness, we DO NOT intend to censor anyone. (Note that running the
-> update script itself only takes a few minutes on a commodity laptop.)
+> [!WARNING] If a participant does not complete the process within 24 hours,
+> their submission will not be accepted and the next participant will be 
+> invited to join.
+> This is for the sake of liveness, we DO NOT intend to censor anyone.
+> (Note that running the update script itself only takes a few minutes on a
+> commodity laptop.)
 
 Depending on the prerequisites of the participant, setting up a GitHub
 account and and a Rust installation may take some time as well.

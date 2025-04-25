@@ -32,7 +32,8 @@ repository.
 After cloning the repository, build it, and copy the binary to the root
 folder:
 ```sh
-sh cargo build --release cp ./target/release/srs_utils./
+sh cargo build --release 
+cp ./target/release/srs_utils./
 ```
 
 ## Participate
@@ -104,7 +105,7 @@ For verifying the chain, simply run:
 ```
 
 This chain starts at Filecoin's [G1 point](filecoin_srs_g1_point).
-See our [wiki](wiki.md) for details on how to verify the validity of this
+See our [wiki](WIKI.md) for details on how to verify the validity of this
 point.
 
 [LatestSRS]: https://srs.midnight.network/current_srs/powers_of_tau

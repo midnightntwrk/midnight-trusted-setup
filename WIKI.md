@@ -54,23 +54,7 @@ sftp -v <YOUR_GITHUB_USERNAME>@srs.stg.midnight.tools
 put <PATH-TO-UPDATED-SRS> .
 ```
 
-## Instructions on the CLI tool
-
-The following guidelines show how to retrieve, build and use the CLI script 
-under Linux/Bash.
-
-### Building the CLI tool from source
-
-After cloning the repository build the script, and copy the binary with:
-
-```sh
-cargo build --release
-cp ./target/release/srs_utils ./
-```  
-
-### Using the CLI tool
-
-#### Details on the update process
+## Update process
 
 For collecting randomness, each participant will be prompted to input random
 text with their keyboard. This random input is mixed (via the `Blake2b512` hash
@@ -79,7 +63,12 @@ value is used for seeding the `ChaCha20` RNG from which a `BLS12-381` scalar
 is derived. This scalar is the participant's randomness contribution to the 
 final SRS.
 
-#### Details on the structure of an SRS
+After every update, the new SRS will be linked to the previous one via a
+[Schnorr proof](https://en.wikipedia.org/wiki/Proof_of_knowledge#Schnorr_protocol),
+which guarantees that the participant built on top of the previous iteration
+and did not start a structurally correct SRS from scratch.
+
+## SRS Structure
 
 Each SRS has a canonical structure, containing:
 
@@ -98,8 +87,11 @@ first $\mathbb{G}_1$ point $[\tau]_1$ from Filecoin's SRS in the file
 Participants and verifiers are encouraged to extract this point themselves.
 Our script provides functionality for that:
 
-0. If you have not already, build and copy the binary as described
-   [here](#building-the-cli-tool-from-source).
+0. If you have not already, build and copy the binary with
+   ```sh
+   sh cargo build --release 
+   cp ./target/release/srs_utils./
+   ```
 
 1. Download the 
    [phase1radix2m19](https://trusted-setup.filecoin.io/phase1/phase1radix2m19)

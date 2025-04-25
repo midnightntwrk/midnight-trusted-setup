@@ -30,10 +30,10 @@ repository.
 ## Build the CLI
 
 After cloning the repository, build it, and copy the binary to the root
-folder of the repository with the commands
+folder of the repository with the commands:
 ```sh
-sh cargo build --release 
-cp ./target/release/srs_utils./
+cargo build --release 
+cp ./target/release/srs_utils ./
 ```
 
 ## Participate

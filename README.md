@@ -6,7 +6,8 @@ This is the official repository for the trusted-setup ceremony of the
 The outcome of this ceremony will be a so-called *powers-of-tau* structured
 reference string (SRS) over the BLS12-381 elliptic curve.
 
-> [!IMPORTANT] This ceremony is currently ongoing and you can be a participant!
+> [!IMPORTANT]
+> This ceremony is currently ongoing and you can be a participant!
 > See the [instructions](#participate) below.
 
 The ceremony is based on the
@@ -66,7 +67,8 @@ cp ./target/release/srs_utils ./
    proof correctly extends the chain of proofs, your PR will be merged and
    the next participant will take over.
 
-> [!WARNING] If a participant does not complete the process within 24 hours,
+> [!WARNING]
+> If a participant does not complete the process within 24 hours,
 > their submission will not be accepted and the next participant will be 
 > invited to join.
 > This is for the sake of liveness, we DO NOT intend to censor anyone.

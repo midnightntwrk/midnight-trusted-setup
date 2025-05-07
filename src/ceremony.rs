@@ -167,7 +167,7 @@ mod srs_tests {
     impl SRS {
         /// ONLY FOR TESTS
         ///
-        /// Generates a random SRS of length N:
+        /// Generates a random SRS of length N+2:
         /// [1]_1, [tau]_1,..., [tau^{N-1}]_1
         /// [1]_2, [tau]_2
         fn generate<R: RngCore>(nr_points: usize, rng: R) -> Self {

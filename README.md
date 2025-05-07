@@ -29,7 +29,7 @@ repository.
 * A working Rust installation.
 
 ## Hardware requirements
-We recommend using a machine with at least 8GB of RAM.
+A machine with at least 8GB of RAM is required.
 
 ## Build the CLI
 

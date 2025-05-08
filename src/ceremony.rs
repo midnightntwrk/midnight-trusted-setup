@@ -26,13 +26,7 @@ use halo2curves::{
     serde::SerdeObject,
 };
 use rand_core::OsRng;
-use rayon::{
-    iter::{
-        IndexedParallelIterator, IntoParallelRefIterator, IntoParallelRefMutIterator,
-        ParallelIterator,
-    },
-    slice::ParallelSlice,
-};
+use rayon::prelude::*;
 
 use crate::{
     schnorr::UpdateProof,
@@ -114,10 +108,16 @@ impl SRS {
 impl SRS {
     pub fn write_to_file(&self, path: &Path) {
         let mut file = create_file(path);
-        let g1_points: Vec<u8> = self.g1s.par_iter().flat_map(|p| p.to_raw_bytes()).collect();
-        let g2_points: Vec<u8> = self.g2s.par_iter().flat_map(|p| p.to_raw_bytes()).collect();
-        file.write_all(&g1_points).expect("Cannot write to file");
-        file.write_all(&g2_points).expect("Cannot write to file");
+
+        for g1_point in &self.g1s {
+            file.write_all(&g1_point.to_raw_bytes())
+                .expect("Cannot write to file");
+        }
+
+        file.write_all(&self.g2s[0].to_raw_bytes())
+            .expect("Cannot write to file");
+        file.write_all(&self.g2s[1].to_raw_bytes())
+            .expect("Cannot write to file");
     }
 
     pub fn read_from_file(path: &Path) -> Self {

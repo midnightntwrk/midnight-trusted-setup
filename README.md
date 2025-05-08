@@ -28,6 +28,9 @@ repository.
 * A GitHub account, with a linked SSH key, and set up with signed commits.
 * A working Rust installation.
 
+## Hardware requirements
+A machine with at least 8GB of RAM is required.
+
 ## Build the CLI
 
 After cloning the repository, build it, and copy the binary to the root

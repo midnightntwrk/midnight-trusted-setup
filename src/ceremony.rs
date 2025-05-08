@@ -167,10 +167,10 @@ mod srs_tests {
     impl SRS {
         /// ONLY FOR TESTS
         ///
-        /// Generate a random SRS of length N:
-        /// [1]_1, [tau]_1,..., [tau^{N-1}]_1
+        /// Generate a random SRS of length n:
+        /// [1]_1, [tau]_1,..., [tau^{n-1}]_1
         /// [1]_2, [tau]_2
-        fn generate<R: RngCore>(nr_points: usize, rng: R) -> Self {
+        fn generate<R: RngCore>(n: usize, rng: R) -> Self {
             let tau = Scalar::random(rng);
 
             // Scalar powers: 1, tau, tau^2,..., tau^{N-1}

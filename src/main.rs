@@ -80,6 +80,15 @@ fn update(old_srs_path: &Path) {
     let nu = generate_toxic_waste(OsRng);
 
     let mut srs = SRS::read_from_file(old_srs_path);
+
+    // Check that current_g = previous_h
+    // I.e., the current update correctly extends the previous update
+    assert_eq!(
+        srs.g1s[1],
+        UpdateProof::read_from_file(&open_update_proof_dirs().last().unwrap().path()).h,
+        "SRS doesn't match chain of updates"
+    );
+
     let proof = srs.update(&nu);
 
     print!("Writing the SRS to file...");

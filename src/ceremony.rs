@@ -167,16 +167,16 @@ mod srs_tests {
     impl SRS {
         /// ONLY FOR TESTS
         ///
-        /// Generates a random SRS of length N:
-        /// [1]_1, [tau]_1,..., [tau^{N-1}]_1
+        /// Generate a random SRS of length n:
+        /// [1]_1, [tau]_1,..., [tau^{n-1}]_1
         /// [1]_2, [tau]_2
-        fn generate<R: RngCore>(nr_points: usize, rng: R) -> Self {
+        fn generate<R: RngCore>(n: usize, rng: R) -> Self {
             let tau = Scalar::random(rng);
 
-            // Scalar powers: 1, tau, tau^2,..., tau^{N-1}
-            let tau_powers = powers(&tau, nr_points);
+            // Scalar powers: 1, tau, tau^2,..., tau^{n-1}
+            let tau_powers = powers(&tau, n);
 
-            // G1 points [tau]_1, ..., [tau^{N-1}]_1
+            // G1 points [tau]_1, ..., [tau^{n-1}]_1
             let g1s: Vec<G1Affine> = tau_powers
                 .par_iter()
                 .map(|power| (G1Affine::generator() * power).to_affine())

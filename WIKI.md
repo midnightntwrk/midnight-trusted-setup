@@ -50,7 +50,7 @@ If a participant wishes to use our file server, they need to request so
 at registration time. The updated SRS file may then be uploaded with:
 
 ```sh
-sftp -v <YOUR_GITHUB_USERNAME>@srs.stg.midnight.tools
+sftp -v <YOUR_GITHUB_USERNAME>@sftp.midnight.network
 put <PATH-TO-UPDATED-SRS> .
 ```
 

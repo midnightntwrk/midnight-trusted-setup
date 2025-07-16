@@ -86,17 +86,20 @@ account and and a Rust installation may take some time as well.
 You may use our server to upload your updated SRS via SFTP. Simply run:
 
 ```sh
-sh sftp -v <YOUR_GITHUB_USERNAME>@srs.stg.midnight.tools
+sh sftp -v <YOUR_GITHUB_USERNAME>@sftp.midnight.network
 put <PATH-TO-UPDATED-SRS> .
 ```
 
 ## Optional: Verify the latest SRS
 
-The latest SRS can be found at [LatestSRS], its size is `3.1GB`. Refer to the
-the `PARTICIPANTS.md` file for its SHA256 digest.
+The latest SRS can be found at [LatestSRS], its size is `3.1GB`. Once you’ve
+downloaded the latest SRS, you can confirm its authenticity by comparing its
+SHA-256 checksum with the one listed in PARTICIPANTS.md:
+```sh
+sha256sum <PATH-TO-DOWNLOADED-SRS>
+```
 
-After downloading the latest SRS, you may verify that it is structurally
-correct with:
+Next, you may verify that it is structurally correct with:
 ```sh
 ./srs_utils <PATH-TO-DOWNLOADED-SRS> verify-structure
 ```

@@ -6,22 +6,21 @@ This is the official repository for the trusted-setup ceremony of the
 The outcome of this ceremony will be a so-called *powers-of-tau* structured
 reference string (SRS) over the BLS12-381 elliptic curve.
 
-> [!IMPORTANT]
-> This ceremony is currently ongoing and you can be a participant!
-> See the [instructions](#participate) below.
-
 The ceremony is based on the
 [Filecoin ceremony](https://trusted-setup.filecoin.io/phase1/), an existing
 powers-of-tau SRS over BLS12-381 used on [Filecoin](https://filecoin.io/)
 and trusted by the Web3 community.
 
-The Filecoin SRS will be re-randomized (or updated) several times by various
-participants. In addition to a new SRS, each update also generates an update
-proof attesting to the fact that the update process correctly used the previous
-SRS.
-
-The chain of update proofs will be stored in the `proofs/` directory of this
+During the Midnight Network's ceremony, the Filecoin SRS will be re-randomized 
+(or updated) multiple times by various participants. Each update generates not 
+only a new SRS but also an update proof, which proves that the previous 
+SRS was used correctly in the update process. The chain of update proofs will 
+be stored in the `proofs/` directory of this
 repository.
+
+> [!IMPORTANT]
+> This ceremony is currently ongoing and you can be a participant!
+> See the instructions below.
 
 ## Prerequisites
 
@@ -42,10 +41,10 @@ cp ./target/release/srs_utils ./
 
 ## Participate
 
-1. For requesting a participation slot, open a GitHub issue in this
-   repository. There is a `Request to Participate in SRS Ceremony` template
-   for it. You will be assigned a participation number `N` and will be notified
-   when your turn arrives.
+1. Open a GitHub issue in this repository using the [Request to Participate in SRS
+   Ceremony](https://github.com/midnightntwrk/midnight-trusted-setup/issues/new?template=request-participation.md)
+   template to request a participation slot. You will be assigned a participation number `N`
+   and will be notified via github when your turn arrives.
 
 2. On your turn, download the [LatestSRS]. You can optionally verify its
    structure and `sha256sum` as explained [below](#verify-the-latest-srs).
@@ -71,12 +70,10 @@ cp ./target/release/srs_utils ./
    the next participant will take over.
 
 > [!WARNING]
-> If a participant does not complete the process within 24 hours,
-> their submission will not be accepted and the next participant will be 
-> invited to join.
-> This is for the sake of liveness, we DO NOT intend to censor anyone.
-> (Note that running the update script itself only takes a few minutes on a
-> commodity laptop.)
+>A **24-hour completion window** is enforced for submissions to maintain ceremony
+> liveness. Unfinished submissions will be declined, and the next participant invited.
+> This is a liveness measure, **NOT censorship.** (Note that running 
+> the update script itself only takes a few minutes on a commodity laptop.)
 
 Depending on the prerequisites of the participant, setting up a GitHub
 account and and a Rust installation may take some time as well.

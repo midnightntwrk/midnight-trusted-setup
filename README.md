@@ -13,7 +13,7 @@ and trusted by the Web3 community.
 
 During the Midnight Network's ceremony, the Filecoin SRS will be re-randomized 
 (or updated) multiple times by various participants. Each update generates not 
-only a new SRS but also an update proof. This proof verifies that the previous 
+only a new SRS but also an update proof, which proves that the previous 
 SRS was used correctly in the update process. The chain of update proofs will 
 be stored in the `proofs/` directory of this
 repository.
@@ -43,8 +43,8 @@ cp ./target/release/srs_utils ./
 
 1. Open a GitHub issue in this repository using the [Request to Participate in SRS
    Ceremony](https://github.com/midnightntwrk/midnight-trusted-setup/issues/new?template=request-participation.md)
-   template to request a slot for it. You will be assigned a participation number `N`
-   and will be notified via email when your turn arrives.
+   template to request a participation slot. You will be assigned a participation number `N`
+   and will be notified via github when your turn arrives.
 
 2. On your turn, download the [LatestSRS]. You can optionally verify its
    structure and `sha256sum` as explained [below](#verify-the-latest-srs).
@@ -72,7 +72,8 @@ cp ./target/release/srs_utils ./
 > [!WARNING]
 >A **24-hour completion window** is enforced for submissions to maintain ceremony
 > liveness. Unfinished submissions will be declined, and the next participant invited.
-> This is a liveness measure, **NOT censorship.** (The update script is quick, taking only minutes).
+> This is a liveness measure, **NOT censorship.** (Note that running 
+> the update script itself only takes a few minutes on a commodity laptop.)
 
 Depending on the prerequisites of the participant, setting up a GitHub
 account and and a Rust installation may take some time as well.

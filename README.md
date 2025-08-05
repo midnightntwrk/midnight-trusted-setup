@@ -83,7 +83,7 @@ account and and a Rust installation may take some time as well.
 You may use our server to upload your updated SRS via SFTP. Simply run:
 
 ```sh
-sh sftp -v <YOUR_GITHUB_USERNAME>@sftp.midnight.network
+sh sftp -v <YOUR_GITHUB_USERNAME>@sftp.trusted-setup.midnight.network
 put <PATH-TO-UPDATED-SRS> .
 ```
 

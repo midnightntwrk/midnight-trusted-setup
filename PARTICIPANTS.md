@@ -15,3 +15,4 @@ SRS contribution.
 | Yevhen Starynets | yevhen-starynets | Shielded | 38f200589b4b3d3f07dedd841a8f874ea727a1d168c6ae26a14d2fa4a31ebcaa |
 | Mathias Hall-Andersen | rot256 | ZKSecurity | 856e437eca80972170a9b299cc21f7544068bd1479a025f417fab7d7aa332878 |
 | Emanuel Solis | emnul | OpenZeppelin | e4eb73a2761514080a4311272da14928af5fe3d74f1b1d814f1552ce2d8a0418 |
+| Julius Tranquilli | floor-licker | Webisoft | feb483110c79d60a3fb8033a28b92aa212b162ed19662fc101072053e36c2a57 |

@@ -16,3 +16,4 @@ SRS contribution.
 | Mathias Hall-Andersen | rot256 | ZKSecurity | 856e437eca80972170a9b299cc21f7544068bd1479a025f417fab7d7aa332878 |
 | Emanuel Solis | emnul | OpenZeppelin | e4eb73a2761514080a4311272da14928af5fe3d74f1b1d814f1552ce2d8a0418 |
 | Julius Tranquilli | floor-licker | Webisoft | feb483110c79d60a3fb8033a28b92aa212b162ed19662fc101072053e36c2a57 |
+| Facundo Lerena | faculerena | Midnames | a8a9c33e7a974399b38770f4ee61a9403ce341005f6190b6a25af0bfa3b55d01 |

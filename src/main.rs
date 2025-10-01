@@ -43,10 +43,17 @@ struct CLICommand {
 
 #[derive(Subcommand, Debug, Clone)]
 enum Command {
-    VerifyStructure,
+    VerifyStructure(VerifyStructureArgs),
     VerifyChain,
     Update,
     ExtractFilecoinG1Point,
+}
+
+#[derive(Parser, Debug, Clone)]
+struct VerifyStructureArgs {
+    /// Asserting 2**length G1 elements in the SRS (incl. the generator)
+    #[arg(short, long)]
+    length: usize,
 }
 
 fn verify_chain(last_srs_path: &Path) {
@@ -62,8 +69,9 @@ fn verify_chain(last_srs_path: &Path) {
 
     let mut g = first_g1_point;
     for proof in chain_of_proofs {
-        proof.verify();
         assert_eq!(proof.g, g);
+        assert_ne!(proof.g, proof.h);
+        proof.verify();
         g = proof.h;
     }
 
@@ -107,10 +115,20 @@ fn update(old_srs_path: &Path) {
     );
 }
 
-fn verify_structure(srs_path: &Path) {
+fn verify_structure(srs_path: &Path, length: usize) {
     println!("\nVerifying structure of the SRS...");
 
     let srs = SRS::read_from_file(srs_path);
+
+    let expected_len = 1 << length;
+    assert_eq!(
+        srs.g1s.len(),
+        expected_len,
+        "Expected {} elements in G1, but found {}.",
+        expected_len,
+        srs.g1s.len(),
+    );
+
     srs.verify_structure();
 
     println!(
@@ -132,7 +150,9 @@ fn main() {
     let args = CLICommand::parse();
 
     match args.cmd {
-        Command::VerifyStructure => verify_structure(Path::new(&args.srs_path)),
+        Command::VerifyStructure(sub_args) => {
+            verify_structure(Path::new(&args.srs_path), sub_args.length)
+        }
         Command::VerifyChain => verify_chain(Path::new(&args.srs_path)),
         Command::Update => update(Path::new(&args.srs_path)),
         Command::ExtractFilecoinG1Point => extract(Path::new(&args.srs_path)),

@@ -89,7 +89,7 @@ first $\mathbb{G}_1$ point $[\tau]_1$ from Filecoin's SRS in the file
 Participants and verifiers are encouraged to extract this point themselves.
 Our script provides functionality for that:
 
-0. If you haven't already, build and copy the binary with
+0. If you have not already, build and copy the binary with
    ```sh
    cargo build --release 
    cp ./target/release/srs_utils ./

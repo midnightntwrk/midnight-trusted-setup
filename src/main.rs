@@ -41,19 +41,16 @@ struct CLICommand {
     srs_path: String,
 }
 
-#[derive(Subcommand, Debug, Clone)]
+#[derive(Subcommand, Debug)]
 enum Command {
-    VerifyStructure(VerifyStructureArgs),
+    VerifyStructure {
+        /// Asserting 2**log2_len G1 elements in the SRS (incl. the generator)
+        #[arg(short, long)]
+        log2_len: usize,
+    },
     VerifyChain,
     Update,
     ExtractFilecoinG1Point,
-}
-
-#[derive(Parser, Debug, Clone)]
-struct VerifyStructureArgs {
-    /// Asserting 2**length G1 elements in the SRS (incl. the generator)
-    #[arg(short, long)]
-    length: usize,
 }
 
 fn verify_chain(last_srs_path: &Path) {
@@ -150,8 +147,8 @@ fn main() {
     let args = CLICommand::parse();
 
     match args.cmd {
-        Command::VerifyStructure(sub_args) => {
-            verify_structure(Path::new(&args.srs_path), sub_args.length)
+        Command::VerifyStructure { log2_len } => {
+            verify_structure(Path::new(&args.srs_path), log2_len)
         }
         Command::VerifyChain => verify_chain(Path::new(&args.srs_path)),
         Command::Update => update(Path::new(&args.srs_path)),

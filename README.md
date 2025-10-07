@@ -89,9 +89,10 @@ put <PATH-TO-UPDATED-SRS> .
 
 ## Optional: Verify the latest SRS
 
-The latest SRS can be found at [LatestSRS], its exact size is `3221225856 B`.
-Once you’ve downloaded the latest SRS, you can confirm its authenticity
-by comparing its SHA-256 checksum with the one listed in PARTICIPANTS.md:
+The latest SRS can be found at [LatestSRS], its exact size is `3221225856 B`
+(about `3.2 GB`). Once you have downloaded the latest SRS, you can confirm its
+authenticity by comparing its SHA-256 checksum with the one listed in
+PARTICIPANTS.md:
 ```sh
 sha256sum <PATH-TO-DOWNLOADED-SRS>
 ```

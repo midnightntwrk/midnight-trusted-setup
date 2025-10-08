@@ -4,7 +4,9 @@ Welcome to the wiki of [Midnight](https://midnight.network/)'s trusted-setup
 ceremony.
 
 The outcome of this ceremony will be a so-called *powers-of-tau* structured
-reference string (SRS) over the BLS12-381 elliptic curve.
+reference string (SRS) over the BLS12-381 elliptic curve of length $2^{25}$
+for the [KZG](https://www.iacr.org/archive/asiacrypt2010/6477178/6477178.pdf)
+polynomial commitment scheme.
 
 We build upon the last output file `challenge19` of Filecoin's 
 `perpetualpowersoftau` ceremony (for the Groth16 proving system) over BLS12-381
@@ -12,7 +14,7 @@ described [here](https://github.com/arielgabizon/perpetualpowersoftau). The
 `challenge19` file is hosted 
 [via IPFS](https://trusted-setup.filecoin.io/phase1/).
 
-An SRS for Groth16 naturally contains the relevant points of an SRS for a
+An SRS for Groth16 naturally contains the relevant points of an SRS for
 KZG-based PLONK. In particular, we aim for a KZG SRS size of $2^{25}$.
 For this purpose, we extracted:
 

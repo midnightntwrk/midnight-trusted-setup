@@ -4,19 +4,19 @@ This is the official repository for the trusted-setup ceremony of the
 [Midnight Network](https://midnight.network/).
 
 The outcome of this ceremony will be a so-called *powers-of-tau* structured
-reference string (SRS) over the BLS12-381 elliptic curve.
+reference string (SRS) over the BLS12-381 elliptic curve of length $2^{25}$
+(see our [wiki](WIKI.md) for more details on the type and length of the SRS).
 
 The ceremony is based on the
 [Filecoin ceremony](https://trusted-setup.filecoin.io/phase1/), an existing
 powers-of-tau SRS over BLS12-381 used on [Filecoin](https://filecoin.io/)
 and trusted by the Web3 community.
 
-During the Midnight Network's ceremony, the Filecoin SRS will be re-randomized 
-(or updated) multiple times by various participants. Each update generates not 
-only a new SRS but also an update proof, which proves that the previous 
-SRS was used correctly in the update process. The chain of update proofs will 
-be stored in the `proofs/` directory of this
-repository.
+During Midnight Network's ceremony, the Filecoin SRS will be updated 
+(i.e., re-randomized) multiple times by various participants. Each update
+generates not  only a new SRS but also an update proof, which proves that
+the previous SRS was used correctly in the update process. The chain of
+update proofs will be stored in the `proofs/` directory of this repository.
 
 > [!IMPORTANT]
 > This ceremony is currently ongoing and you can be a participant!
@@ -89,16 +89,18 @@ put <PATH-TO-UPDATED-SRS> .
 
 ## Optional: Verify the latest SRS
 
-The latest SRS can be found at [LatestSRS], its size is `3.1GB`. Once you’ve
-downloaded the latest SRS, you can confirm its authenticity by comparing its
-SHA-256 checksum with the one listed in PARTICIPANTS.md:
+The latest SRS can be found at [LatestSRS], its exact size is `3221225856 B`
+(about `3.2 GB`). Once you have downloaded the latest SRS, you can confirm its
+authenticity by comparing its SHA-256 checksum with the one listed in
+PARTICIPANTS.md:
 ```sh
 sha256sum <PATH-TO-DOWNLOADED-SRS>
 ```
 
-Next, you may verify that it is structurally correct with:
+Next, you may verify that it is structurally correct and has the expected
+length of $2^{25}$ with:
 ```sh
-./srs_utils <PATH-TO-DOWNLOADED-SRS> verify-structure
+./srs_utils <PATH-TO-DOWNLOADED-SRS> verify-structure -l 25
 ```
 
 You can also verify the chain of update proofs that link the latest SRS to

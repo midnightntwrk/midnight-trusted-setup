@@ -18,3 +18,4 @@ SRS contribution.
 | Julius Tranquilli     | floor-licker       | Webisoft       | feb483110c79d60a3fb8033a28b92aa212b162ed19662fc101072053e36c2a57 |
 | Facundo Lerena        | faculerena         | Midnames       | a8a9c33e7a974399b38770f4ee61a9403ce341005f6190b6a25af0bfa3b55d01 |
 | Hareem Adderley       | HareemAtWave       | Wavepool       | 1fafcc10e31c677f05da8e6236e6a43255eda4a6e4c6a0d0ab7017b0d1a71df7 |
+| Daniel Dominguez      | 0xddom             | Veridise       | 92552a85be1886a4085540664752c7348bb0f0691b699d8945c11adee3f445ee |

@@ -19,3 +19,4 @@ SRS contribution.
 | Facundo Lerena        | faculerena         | Midnames       | a8a9c33e7a974399b38770f4ee61a9403ce341005f6190b6a25af0bfa3b55d01 |
 | Hareem Adderley       | HareemAtWave       | Wavepool       | 1fafcc10e31c677f05da8e6236e6a43255eda4a6e4c6a0d0ab7017b0d1a71df7 |
 | Daniel Dominguez      | 0xddom             | Veridise       | 92552a85be1886a4085540664752c7348bb0f0691b699d8945c11adee3f445ee |
+| Shankara Pailoor      | shankarapailoor    | Veridise       | dc51d8d4a27e646dc742b95ea097936c7c86dca7326d593a556a2dd212702d40 |

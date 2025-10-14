@@ -156,7 +156,7 @@ pub fn generate_toxic_waste(mut rng: impl RngCore + CryptoRng) -> Scalar {
     hasher.update(os_input);
 
     // Hash it all together and use hash as seed for RNG
-    let digest: [u8; 32] = hasher.finalize().as_slice()[0..32].try_into().unwrap();
+    let digest: [u8; 32] = hasher.finalize()[0..32].try_into().unwrap();
 
     Scalar::random(ChaCha20Rng::from_seed(digest))
 }

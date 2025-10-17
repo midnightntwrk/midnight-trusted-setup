@@ -22,3 +22,4 @@ SRS contribution.
 | Shankara Pailoor      | shankarapailoor    | Veridise       | dc51d8d4a27e646dc742b95ea097936c7c86dca7326d593a556a2dd212702d40 |
 | Bruno Weisz           | brweisz            | Eryx           | cc3ac46984cf071d9b6e80eb6ddeeb02646de3215183e29b1cfa58f24db7e1aa |
 | Daniel Costa          | daniel-bcw         | BCW            | b09f8c84c251331cf73cbb5e02801ff7ab4b613ae799090b5efed3d563e618b6 |
+| Michael Tan		| MrMikol	     | GlobalStake    | fef10313fd5c1da38aaef05fbd4a361e8f8dccabd87827ee334802f99e836bb7 |

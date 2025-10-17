@@ -21,3 +21,4 @@ SRS contribution.
 | Daniel Dominguez      | 0xddom             | Veridise       | 92552a85be1886a4085540664752c7348bb0f0691b699d8945c11adee3f445ee |
 | Shankara Pailoor      | shankarapailoor    | Veridise       | dc51d8d4a27e646dc742b95ea097936c7c86dca7326d593a556a2dd212702d40 |
 | Bruno Weisz           | brweisz            | Eryx           | cc3ac46984cf071d9b6e80eb6ddeeb02646de3215183e29b1cfa58f24db7e1aa |
+| Daniel Costa          | daniel-bcw         | BCW            | b09f8c84c251331cf73cbb5e02801ff7ab4b613ae799090b5efed3d563e618b6 |

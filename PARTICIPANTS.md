@@ -25,3 +25,4 @@ SRS contribution.
 | Michael Tan		| MrMikol	     | GlobalStake    | fef10313fd5c1da38aaef05fbd4a361e8f8dccabd87827ee334802f99e836bb7 |
 | Makashev Rustam       | Apolla-M           | Ankr           | 75ec886d856a9aba146cfac2ea7a32f8619122d7198b74a17a22b9326e7449fb |
 | Karl W. Koch          | kaydoubleu         | TU Graz        | 5123d9d4ef5412723ec9fcc1c6ff42223d6a26a0b2a57c5d471a5886300e758d |
+| Pavel Kiselyov        | pavel-bc           | Blockchain.com | 2907ef846a95d174efe3756fac46a2664ac7c91268bf6fc5f754a6149649b1f9 |

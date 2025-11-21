@@ -27,3 +27,4 @@ SRS contribution.
 | Karl W. Koch          | kaydoubleu         | TU Graz        | 5123d9d4ef5412723ec9fcc1c6ff42223d6a26a0b2a57c5d471a5886300e758d |
 | Pavel Kiselyov        | pavel-bc           | Blockchain.com | 2907ef846a95d174efe3756fac46a2664ac7c91268bf6fc5f754a6149649b1f9 |
 | Thomas Vellekoop      | perturbing         | IOE            | e4066be1b449157a6ab8db739f9edebde0294391a0397ae2ba84d17dba96244a |
+| Hamza Jeljeli         | hjeljeli32         | IOE            | c844f4b6153aea09f72590540de727811ef89c8d9a9b2b9d6c758b20d7458da2 |

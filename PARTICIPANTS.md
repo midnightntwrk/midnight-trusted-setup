@@ -5,7 +5,7 @@ GitHub handle, affiliation (optional), and the SHA256 digest of their updated
 SRS contribution.
 
 | Name                  | GitHub Handle      | Affiliation    | SHA2-256 Digest                                                  |
-|-----------------------|--------------------|----------------| ---------------------------------------------------------------- |
+| --------------------- | ------------------ | -------------- | ---------------------------------------------------------------- |
 | Itsaka Rakotonirina   | irakoton           | Shielded       | c8198660d9d3e865930796e7833a76f4a3231d59f590657817f637a06c98e7d1 |
 | Monika Jassova        | MonikaJassova      | Shielded       | 15aa73f7a4f16dc4b6925cc1261b84ae2fb9d6a04562d4a4e018ac1fa5286f74 |
 | Bob Blessing-Hartley  | bobblessinghartley | Shielded       | c3b9d1f142f6ce60e38fc4edae28e94bb7ac6a982bcae4690c0909e8f8c7f8ba |
@@ -28,3 +28,4 @@ SRS contribution.
 | Pavel Kiselyov        | pavel-bc           | Blockchain.com | 2907ef846a95d174efe3756fac46a2664ac7c91268bf6fc5f754a6149649b1f9 |
 | Thomas Vellekoop      | perturbing         | IOE            | e4066be1b449157a6ab8db739f9edebde0294391a0397ae2ba84d17dba96244a |
 | Hamza Jeljeli         | hjeljeli32         | IOE            | c844f4b6153aea09f72590540de727811ef89c8d9a9b2b9d6c758b20d7458da2 |
+| Juan S. Magán Valero  | jmagan             | Modulo-p       | 51a56d075dd2f2e8422458f63c6e052adbf199ed9def113c864cb7f3b3759715 |

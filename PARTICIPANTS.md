@@ -29,3 +29,4 @@ SRS contribution.
 | Thomas Vellekoop      | perturbing         | IOE            | e4066be1b449157a6ab8db739f9edebde0294391a0397ae2ba84d17dba96244a |
 | Hamza Jeljeli         | hjeljeli32         | IOE            | c844f4b6153aea09f72590540de727811ef89c8d9a9b2b9d6c758b20d7458da2 |
 | Juan S. Magán Valero  | jmagan             | Modulo-p       | 51a56d075dd2f2e8422458f63c6e052adbf199ed9def113c864cb7f3b3759715 |
+| David A. Dada         | dadadave80         | HostIt         | 8af0e16612c8abdb4560b152e796da9c7f43cebe3b42d3121bf15750a2a724b9 |

@@ -32,3 +32,4 @@ SRS contribution.
 | David A. Dada         | dadadave80         | HostIt         | 8af0e16612c8abdb4560b152e796da9c7f43cebe3b42d3121bf15750a2a724b9 |
 | 0xblackadam           | Ultra-tech-code    | GuildAudit     | c10e4c149659d8e7c9d9649e7729bbd5c0c2a575369e94739ebab116f19f500b |
 | Jesus Diaz Vico       | jesusdiazvico      | IOG            | b78aee0d45393dfdffa31a2e1ae168044c8634d81b784ac943daa6a3aeacfe3f |
+| Miguel Ambrona        | miguel-ambrona     | Shielded       | cd692910134beffea1695899bc8f12b8a280f205e65006302e7b9160320acf15 |

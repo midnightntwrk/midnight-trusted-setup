@@ -160,3 +160,30 @@ pub fn generate_toxic_waste(mut rng: impl RngCore + CryptoRng) -> Scalar {
 
     Scalar::random(ChaCha20Rng::from_seed(digest))
 }
+
+/// Generates a scalar from external randomness provided by drand (sampled from
+/// a pre-committed round number)
+pub fn generate_toxic_waste_from_drand() -> Scalar {
+    let mut hasher = Blake2b512::new();
+
+    // Read external randomness input by the user
+    let mut user_input = String::new();
+    println!("\nStep 1/2: Please, paste the hex value of the RANDOMNESS BEACON from drand here\n(without any leading 0x)");
+    std::io::stdin()
+        .read_line(&mut user_input)
+        .expect("Failed to read user input");
+    hasher.update(user_input);
+
+    // Read salt used in the commitment C to the round number N of drand
+    let mut user_input = String::new();
+    println!("\nStep 2/2: Please, paste the hex value of the SALT used in the commitment to the round number of drand here\n(without any leading 0x)");
+    std::io::stdin()
+        .read_line(&mut user_input)
+        .expect("Failed to read user input");
+    hasher.update(user_input);
+
+    // Hash it all together and use hash as seed for RNG
+    let digest: [u8; 32] = hasher.finalize()[0..32].try_into().unwrap();
+
+    Scalar::random(ChaCha20Rng::from_seed(digest))
+}

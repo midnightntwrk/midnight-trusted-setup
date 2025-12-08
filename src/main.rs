@@ -15,6 +15,7 @@
 
 use std::path::Path;
 
+use blstrs::Scalar;
 use clap::{Parser, Subcommand};
 use rand_core::OsRng;
 
@@ -79,47 +80,24 @@ fn verify_chain(last_srs_path: &Path) {
     println!("The chain of update proofs is correct!\n");
 }
 
-fn update(old_srs_path: &Path) {
-    println!("\nRe-randomizing the existing SRS...");
-
-    let (new_srs_path, new_proof_path) = derive_new_path(old_srs_path);
+fn update_with_randomness(old_srs_path: &Path) {
+    println!("\nRe-randomizing the existing SRS with randomness from user input and OS...");
 
     let nu = generate_toxic_waste(OsRng);
 
-    let mut srs = SRS::read_from_file(old_srs_path);
-
-    // Check that current_g = previous_h
-    // I.e., the current update correctly extends the previous update
-    assert_eq!(
-        srs.g1s[1],
-        UpdateProof::read_from_file(&open_update_proof_dirs().last().unwrap().path()).h,
-        "SRS doesn't match chain of updates"
-    );
-
-    let proof = srs.update(&nu);
-
-    print!("Writing the SRS to file...");
-    srs.write_to_file(&new_srs_path);
-    proof.write_to_file(&new_proof_path);
-
-    println!(
-        "\rThank you for your participation!\n\nThe SRS in {:?} has been successfully updated and saved to {:?}.\n",
-        old_srs_path.canonicalize().unwrap(),
-        new_srs_path.canonicalize().unwrap()
-    );
-
-    println!(
-        "Make sure you upload your updated SRS to the SFTP server and open a PR with your validity proof (saved at {:?}).\n",
-        new_proof_path.canonicalize().unwrap()
-    );
+    update(nu, old_srs_path);
 }
 
 fn update_with_random_beacon(old_srs_path: &Path) {
     println!("\nRe-randomizing the existing SRS with random beacon from drand...");
 
-    let (new_srs_path, new_proof_path) = derive_new_path(old_srs_path);
-
     let nu = generate_toxic_waste_from_drand();
+
+    update(nu, old_srs_path);
+}
+
+fn update(nu: Scalar, old_srs_path: &Path) {
+    let (new_srs_path, new_proof_path) = derive_new_path(old_srs_path);
 
     let mut srs = SRS::read_from_file(old_srs_path);
 
@@ -188,7 +166,7 @@ fn main() {
             verify_structure(Path::new(&args.srs_path), log2_len)
         }
         Command::VerifyChain => verify_chain(Path::new(&args.srs_path)),
-        Command::Update => update(Path::new(&args.srs_path)),
+        Command::Update => update_with_randomness(Path::new(&args.srs_path)),
         Command::ExtractFilecoinG1Point => extract(Path::new(&args.srs_path)),
         Command::UpdateWithRandomBeacon => update_with_random_beacon(Path::new(&args.srs_path)),
     };

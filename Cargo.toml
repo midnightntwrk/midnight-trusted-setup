@@ -3,10 +3,6 @@ name = "srs"
 version = "0.1.0"
 edition = "2021"
 
-[[bin]]
-name = "srs_utils"
-path = "src/main.rs"
-
 [dependencies]
 blstrs = { git = "https://github.com/davidnevadoc/blstrs", rev = "e6e4518" }
 rand_core = "0.6"

@@ -176,4 +176,7 @@ toxic waste `tau`, and confirm that the final SRS update is correct.
 This ensures a transparent, unbiased, and fully reproducible conclusion to 
 the ceremony.
 
+### Verification
+You can verify the final update using the drand_verifier binary.
+
 [LatestSRS]: https://srs.midnight.network/current_srs/powers_of_tau

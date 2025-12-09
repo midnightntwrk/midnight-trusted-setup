@@ -33,3 +33,4 @@ SRS contribution.
 | 0xblackadam           | Ultra-tech-code    | GuildAudit     | c10e4c149659d8e7c9d9649e7729bbd5c0c2a575369e94739ebab116f19f500b |
 | Jesus Diaz Vico       | jesusdiazvico      | IOG            | b78aee0d45393dfdffa31a2e1ae168044c8634d81b784ac943daa6a3aeacfe3f |
 | Miguel Ambrona        | miguel-ambrona     | Shielded       | cd692910134beffea1695899bc8f12b8a280f205e65006302e7b9160320acf15 |
+| Antonio Nappa         | jeppojeps          | fuzzsociety.org| 41002310380b562ea65d531a271de72579c1de5c92dd288a5bd91608e8b2f516 |

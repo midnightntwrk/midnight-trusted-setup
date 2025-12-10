@@ -19,8 +19,8 @@ the previous SRS was used correctly in the update process. The chain of
 update proofs will be stored in the `proofs/` directory of this repository.
 
 > [!IMPORTANT]
-> This ceremony is currently ongoing and you can be a participant!
-> See the instructions below.
+> This ceremony is currently ongoing, until Dec 16 2025 (AoE), and you can 
+> be a participant! See the instructions below.
 
 ## Prerequisites
 
@@ -118,36 +118,62 @@ See our [wiki](WIKI.md) for details on how to verify the validity of this
 point.
 
 ## End of the SRS ceremony
-The ceremony will end on Dec 16, 2025 (AoE), no more contributions will be accepted after this date.
+The ceremony will end on Dec 16, 2025 (AoE), no more contributions will be 
+accepted after this date.
 
-When the ceremony is over, we will perform an additional iteration using a randomness beacon as entropy source. This is to ensure that the final SRS is unbiased.
+When the ceremony is over, we will perform an additional iteration using a 
+randomness beacon as entropy source. This is to ensure that the final SRS 
+is unbiased.
 
-Concretely, the toxic waste that will be used in the last iteration will be derived with `ChaCha20`, seeded with entropy from [drand]([https://github.com/drand/drand](https://github.com/drand/drand)), a distributed randomness beacon that produces 32 bytes of entropy every 30 seconds in so-called "rounds".
+Concretely, the toxic waste that will be used in the last iteration will be 
+derived with `ChaCha20`, seeded with entropy from
+[drand]([https://github.com/drand/drand](https://github.com/drand/drand)), 
+a distributed randomness beacon that produces 32 bytes of entropy every 30 
+seconds in so-called "rounds".
 
-The `drand` network produces publicly verifiable, unbiasable and unpredictable random values in a distributed manner using threshold cryptography. In particular, the random values provided by `drand` stay unbiased, even if an adversary controls more than the threshold number of nodes in the network. For more information, refer to their [docs](https://docs.drand.love/).
+The `drand` network produces publicly verifiable, unbiasable and 
+unpredictable random values in a distributed manner using threshold 
+cryptography. In particular, the random values provided by `drand` stay 
+unbiased, even if an adversary controls more than the threshold number of 
+nodes in the network. For more information, refer to their 
+[docs](https://docs.drand.love/).
 
 ### How we select randomness
-We will use the random value `r` from a specific `drand` round `N` to seed the last iteration of the ceremony. The following `C` is our commitment (on date Dec 10, 2025) to the round number `N`. `C` is the SHA256 hash of `N` encoded as a 16-byte little-endian unsigned integer, concatenated with a 16-byte random `SALT`.
+We will use the random value `r` from a specific `drand` round `N` to seed 
+the last iteration of the ceremony. The following `C` is our commitment (on 
+date Dec 10, 2025) to the round number `N`. `C` is the SHA256 hash of `N` 
+encoded as a 16-byte little-endian unsigned integer, concatenated with a 
+16-byte random `SALT`.
 
 ```
 C = SHA256(N || SALT) = 4282753f1830effbef453338577e682ecb2714a0de4ecf4998546f18e314f7f3
 ```
 
 
-The concrete value of `N` that we have chosen (and the `SALT`) will be disclosed after such round is sampled by the `drand` network, which will happen after the *Dec 16, 2025 (AoE)* deadline.
+The concrete value of `N` that we have chosen (and the `SALT`) will be 
+disclosed after such round is sampled by the `drand` network, which will 
+happen after the *Dec 16, 2025 (AoE)* deadline.
 
 ### How we seed the last iteration
-The randomness `r` from the `N`-th `drand` round will be publicly available [here](https://api.drand.sh/v2/beacons/default/rounds/insert-N-here) once its time slot has arrived.
+The randomness `r` from the `N`-th `drand` round will be publicly available 
+[here](https://api.drand.sh/v2/beacons/default/rounds/insert-N-here) once 
+its time slot has arrived.
 
-The toxic waste `tau` of the last re-randomization of the SRS will be derived by seeding ChaCha20 with the SHA256 digest of `r || SALT`, where `SALT` is the one we used in the commitment `C` to `N` from above:
+The toxic waste `tau` of the last re-randomization of the SRS will be 
+derived by seeding ChaCha20 with the SHA256 digest of `r || SALT`, where 
+`SALT` is the one we used in the commitment `C` to `N` from above:
 
 ```
 RNG = ChaCha20::from_seed(SHA256(r || SALT))
 tau = Sclar::random(RNG)
 ```
 
-Because the commitment `C` is published in advance, and the `drand` beacon is publicly verifiable, anyone will be able to independently verify the commitment opening `N || SALT`, retrieve the randomness `r`, recompute the toxic waste `tau`, and confirm that the final SRS update is correct.
+Because the commitment `C` is published in advance, and the `drand` beacon 
+is publicly verifiable, anyone will be able to independently verify the 
+commitment opening `N || SALT`, retrieve the randomness `r`, recompute the 
+toxic waste `tau`, and confirm that the final SRS update is correct.
 
-This ensures a transparent, unbiased, and fully reproducible conclusion to the ceremony.
+This ensures a transparent, unbiased, and fully reproducible conclusion to 
+the ceremony.
 
 [LatestSRS]: https://srs.midnight.network/current_srs/powers_of_tau

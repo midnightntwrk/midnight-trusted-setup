@@ -118,13 +118,13 @@ See our [wiki](WIKI.md) for details on how to verify the validity of this
 point.
 
 ## End of the SRS ceremony
-The ceremony will end on Dec 16, 2025, no more contributions will be accepted after this date.
+The ceremony will end on Dec 16, 2025 (AoE), no more contributions will be accepted after this date.
 
 When the ceremony is over, we will perform an additional iteration using a randomness beacon as entropy source. This is to ensure that the final SRS is unbiased.
 
 Concretely, the toxic waste that will be used in the last iteration will be derived with `ChaCha20`, seeded with entropy from [drand]([https://github.com/drand/drand](https://github.com/drand/drand)), a distributed randomness beacon that produces 32 bytes of entropy every 30 seconds in so-called "rounds".
 
-The `drand` network produces publicly verifiable, unbiasable and unpredictable random values in a distributed manner using threshold cryptography.  In particular, the random values provided by `drand` stay unbiased, even if an adversary controls more than the threshold number of nodes in the network. For more information, refer to their [docs](https://docs.drand.love/)
+The `drand` network produces publicly verifiable, unbiasable and unpredictable random values in a distributed manner using threshold cryptography. In particular, the random values provided by `drand` stay unbiased, even if an adversary controls more than the threshold number of nodes in the network. For more information, refer to their [docs](https://docs.drand.love/).
 
 ### How we select randomness
 We will use the random value `r` from a specific `drand` round `N` to seed the last iteration of the ceremony. The following `C` is our commitment (on date Dec 10, 2025) to the round number `N`. `C` is the SHA256 hash of `N` encoded as a 16-byte little-endian unsigned integer, concatenated with a 16-byte random `SALT`.

@@ -1,25 +1,25 @@
-//! `drand` Verifier - Verifies that an SRS update was created using `drand`
-//! randomness
+//! Drand Verifier - Verifies that an SRS update was created using Drand
+//! randomness.
 //!
 //! This tool verifies that the last SRS update in the ceremony was created
-//! using randomness from a specific committed round of `drand`, providing
+//! using randomness from a specific committed round of Drand, providing
 //! public verifiability.
 //!
 //! # How it works
 //!
-//! 1. Verifies the commitment matches Blake2b-512(round || salt)
-//! 2. Fetches the drand signature for the specified round from the drand API
-//! 3. Verifies the drand signature is cryptographically valid
+//! 1. Verifies the commitment matches SHA-256(round || salt)
+//! 2. Fetches the Drand signature for the specified round from the Drand API
+//! 3. Verifies the Drand signature is cryptographically valid
 //! 4. Derives the scalar using the same process as the update:
 //!    - Calls [derive_randomness] to extract randomness from the signature
-//!    - Computes `seed = Blake2b-512(derive_randomness(signature) ||
-//!      salt)[0..32]`
+//!    - Computes `seed = Blake2b-512(randomness || salt)`
 //!    - Generates `scalar = Scalar::random(ChaCha20Rng::from_seed(seed))`
 //! 5. Reads the last update proof and verifies that `proof.h == proof.g *
 //!    scalar`
 //!
 //! If all checks pass, this proves the last SRS update was created using the
-//! committed `drand` round and `salt` used in the commitment to this round.
+//! randomness form the committed Drand round and the `salt` used in for such
+//! commitment.
 
 use blake2::{Blake2b512, Digest};
 use blstrs::Scalar;
@@ -28,32 +28,34 @@ use drand_verify::{derive_randomness, verify, G1Pubkey, Pubkey};
 use halo2curves::{ff::Field, group::Curve};
 use rand_chacha::{rand_core::SeedableRng, ChaCha20Rng};
 use serde::Deserialize;
+use sha2::Sha256;
 
 #[derive(Parser, Debug)]
 #[command(name = "drand-verifier")]
 #[command(
-    about = "Verifies a (pre-committed) drand round and checks that the last SRS update correctly used the drand randomness as seed."
+    about = "Verifies a (pre-committed) Drand round and checks that the last SRS update correctly used the Drand randomness as seed."
 )]
 #[command(
-    long_about = "Verifies that an SRS update was created using randomness from a specific committed drand round.\n\n\
-                         This tool fetches and verifies the drand signature for a given committed round, verifies the commitment to this round, derives the scalar using\n\
-                         derive_randomness(signature) combined with the salt, and checks that the last\n\
-                         update proof matches this scalar."
+    long_about = "Verifies that an SRS update was created using randomness from a specific committed Drand round.\n\n\
+                  This tool fetches and verifies the Drand signature for a given committed round, verifies the commitment to this round, derives the scalar using\n\
+                  derive_randomness(signature) combined with the salt, and checks that the last\n\
+                  update proof matches this scalar."
 )]
 struct Args {
-    /// The drand round number used for the update
+    /// The Drand round number used for the update
     #[arg(short, long)]
     round: u64,
 
-    /// The salt (hex) used in the commitment (16 bytes recommended)
+    /// The salt (hex) used in the commitment to the round number (16 bytes)
     #[arg(short, long)]
     salt: String,
 
-    /// The commitment (hex) = Blake2b-512(round || salt)
+    /// The commitment (hex) to the round number, supposedly
+    /// SHA-256(round || salt)
     #[arg(short, long)]
     commitment: String,
 
-    /// Additionally verify the entire drand chain from round 1 to the specified
+    /// Additionally verify the entire Drand chain from round 1 to the specified
     /// round
     #[arg(long, default_value_t = false)]
     verify_chain: bool,
@@ -68,33 +70,33 @@ struct DrandResponse {
     previous_signature: Option<String>,
 }
 
-// https://api.drand.sh/v2/beacons/default/info
+/// https://api.drand.sh/v2/beacons/default/info
 const DRAND_PUBLIC_KEY: &str = "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31";
 
+/// Fetches the Drand information, for the given round number, from the public
+/// Drand API. This information includes the round signature and the previous
+/// signature.
 fn fetch_drand_round(round: u64) -> Result<DrandResponse, std::io::Error> {
     ureq::get(&format!(
         "https://api.drand.sh/v2/beacons/default/rounds/{}",
         round
     ))
     .call()
-    .map_err(|e| {
-        std::io::Error::new(
-            std::io::ErrorKind::Other,
-            format!("Error in HTTPS call: {:?}", e),
-        )
-    })?
+    .map_err(|e| std::io::Error::other(format!("Error in HTTPS call: {:?}", e)))?
     .into_json()
 }
 
+/// Verifies the Drand signature for the given round.
 fn verify_signature(round: u64, signature: &[u8], previous_signature: &[u8], public_key_hex: &str) {
     let pubkey = G1Pubkey::from_variable(&hex::decode(public_key_hex).unwrap()).unwrap();
 
-    if !verify(&pubkey, round, previous_signature, signature).unwrap() {
-        eprintln!("Signature verification of round {round} failed");
-        std::process::exit(1);
-    }
+    assert!(
+        verify(&pubkey, round, previous_signature, signature).unwrap(),
+        "Signature verification of round {round} failed."
+    );
 }
 
+/// Verifies the entire Drand chain from `start_round` to `end_round`.
 fn verify_chain(start_round: u64, end_round: u64) {
     let mut previous_sig: Vec<u8> = Vec::new();
 
@@ -104,35 +106,44 @@ fn verify_chain(start_round: u64, end_round: u64) {
         }
 
         let response = fetch_drand_round(round)
-            .unwrap_or_else(|_| panic!("Failed to fetch DRAND round {round}."));
+            .unwrap_or_else(|_| panic!("Failed to fetch Drand round {round}."));
         let signature = hex::decode(&response.signature)
-            .expect("Invalid signature format from DRAND response.");
+            .expect("Invalid signature format from Drand response.");
         verify_signature(round, &signature, &previous_sig, DRAND_PUBLIC_KEY);
         previous_sig = signature;
     }
-    println!("Chain successfully verified");
+    println!("Drand chain from {start_round} to {end_round} successfully verified!");
 }
 
-fn verify_commitment(round: u64, salt: &[u8], commitment: &[u8]) {
+/// Verify that `commitment` opens to `round || salt`.
+///
+/// Namely, assert that `commitment == SHA-256(round || salt)`,
+/// where `round` is encoded as 16 bytes in little-endian.
+fn verify_commitment(round: u64, salt: &[u8; 16], commitment: &[u8]) {
     let mut data = round.to_le_bytes().to_vec();
+    data.resize(16, 0);
     data.extend_from_slice(salt);
 
-    let hash = Blake2b512::digest(&data);
-    if &hash[..] != commitment {
-        eprintln!("Commitment verification failed");
-        std::process::exit(1);
-    }
+    let hash = Sha256::digest(&data);
+
+    assert_eq!(&hash[..], commitment, "Commitment verification failed.");
 }
 
 fn main() {
     let args = Args::parse();
 
-    let salt = hex::decode(&args.salt).expect("Failed to decode salt.");
+    let mut salt = [0u8; 16];
+    hex::decode_to_slice(&args.salt, &mut salt).expect("Failed to decode salt.");
+
     let commitment = hex::decode(&args.commitment).expect("Failed to decode commitment.");
 
     verify_commitment(args.round, &salt, &commitment);
+    print!(
+        "Commitment successfully verified!\nSHA-256({}u64 || {}) = {}\n\n",
+        args.round, args.salt, args.commitment,
+    );
 
-    let drand_response = fetch_drand_round(args.round).expect("Failed to fetch drand round.");
+    let drand_response = fetch_drand_round(args.round).expect("Failed to fetch Drand round.");
 
     if args.verify_chain {
         verify_chain(1, args.round);
@@ -148,39 +159,47 @@ fn main() {
         .unwrap_or_default();
 
     verify_signature(args.round, &signature, &previous_sig, DRAND_PUBLIC_KEY);
-
-    let seed = Blake2b512::new()
-        .chain_update(derive_randomness(&signature))
-        .chain_update(&salt)
-        .finalize()[..32]
-        .try_into()
-        .unwrap();
-
-    let scalar = Scalar::random(ChaCha20Rng::from_seed(seed));
-
-    // We now take the last two contributions, and check that the last corresponds
-    // to an update of the previous with the randomness above.
-
-    println!(
-        "Verifying that the last contribution was created with drand randomness from round {}...",
-        args.round
+    let round_randomness = derive_randomness(&signature);
+    print!(
+        "Drand round {} was fetched correctly, its signature is valid!\nThe round randomness is: {}\n\n",
+        args.round,
+        hex::encode(round_randomness)
     );
 
-    // Read the last update proof and verify the scalar matches
-    let update_proofs = srs::utils::open_update_proof_dirs();
-    if update_proofs.len() < 2 {
-        eprintln!("Need at least 2 update proofs to verify the last contribution");
-        std::process::exit(1);
-    }
+    // Compute the scalar exactly as in the update process, from the Drand
+    // randomness, concatenated with the salt
 
-    let last_proof =
-        srs::schnorr::UpdateProof::read_from_file(&update_proofs.last().unwrap().path());
+    let mut buffer = String::new();
+    buffer.push_str(&hex::encode(round_randomness));
+    buffer.push_str(&hex::encode(salt));
+
+    let mut hasher = Blake2b512::new();
+    hasher.update(buffer);
+
+    let seed: [u8; 32] = hasher.finalize()[0..32].try_into().unwrap();
+    let scalar = Scalar::random(ChaCha20Rng::from_seed(seed));
+
+    println!(
+        "The scalar derived from the Drand round randomness and the provided salt is:\n{scalar}\n",
+    );
+
+    // We now take the last two contributions, and check that the last corresponds
+    // to an update of the previous with the randomness above
+    let update_proofs = srs::utils::open_update_proof_dirs();
+    let last_update_proof_file = update_proofs.last().unwrap().path();
+    let last_proof = srs::schnorr::UpdateProof::read_from_file(&last_update_proof_file);
 
     // Verify that h = g * scalar (i.e., the last update used our scalar)
-    if (last_proof.g * scalar).to_affine() != last_proof.h {
-        eprintln!("Verification failed: The last contribution does not match the drand randomness");
-        std::process::exit(1);
-    }
+    assert_eq!(
+        (last_proof.g * scalar).to_affine(),
+        last_proof.h,
+        "The last contribution (proved in file {last_update_proof_file:?}) was NOT performed with the expected scalar"
+    );
 
-    println!("Verification successful! The last contribution was correctly generated using round {} of drand", args.round);
+    println!(
+        "The last contribution (proved in file {:?}) was performed with the expected scalar",
+        last_update_proof_file
+    );
+
+    println!("\nAll checks passed!");
 }

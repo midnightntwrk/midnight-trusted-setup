@@ -15,7 +15,6 @@
 
 use std::path::Path;
 
-use blstrs::Scalar;
 use clap::{Parser, Subcommand};
 use rand_core::OsRng;
 
@@ -27,8 +26,7 @@ use ceremony::{G1_SIZE, SRS};
 
 mod utils;
 use utils::{
-    derive_new_path, generate_toxic_waste, generate_toxic_waste_from_drand, open_update_proof_dirs,
-    read_g1_point_from_file,
+    derive_new_path, generate_toxic_waste, open_update_proof_dirs, read_g1_point_from_file,
 };
 
 mod filecoin;
@@ -53,7 +51,6 @@ enum Command {
     VerifyChain,
     Update,
     ExtractFilecoinG1Point,
-    UpdateWithRandomBeacon,
 }
 
 fn verify_chain(last_srs_path: &Path) {
@@ -80,24 +77,12 @@ fn verify_chain(last_srs_path: &Path) {
     println!("The chain of update proofs is correct!\n");
 }
 
-fn update_with_randomness(old_srs_path: &Path) {
-    println!("\nRe-randomizing the existing SRS with randomness from user input and OS...");
+fn update(old_srs_path: &Path) {
+    println!("\nRe-randomizing the existing SRS...");
+
+    let (new_srs_path, new_proof_path) = derive_new_path(old_srs_path);
 
     let nu = generate_toxic_waste(OsRng);
-
-    update(nu, old_srs_path);
-}
-
-fn update_with_random_beacon(old_srs_path: &Path) {
-    println!("\nRe-randomizing the existing SRS with random beacon from drand...");
-
-    let nu = generate_toxic_waste_from_drand();
-
-    update(nu, old_srs_path);
-}
-
-fn update(nu: Scalar, old_srs_path: &Path) {
-    let (new_srs_path, new_proof_path) = derive_new_path(old_srs_path);
 
     let mut srs = SRS::read_from_file(old_srs_path);
 
@@ -166,9 +151,8 @@ fn main() {
             verify_structure(Path::new(&args.srs_path), log2_len)
         }
         Command::VerifyChain => verify_chain(Path::new(&args.srs_path)),
-        Command::Update => update_with_randomness(Path::new(&args.srs_path)),
+        Command::Update => update(Path::new(&args.srs_path)),
         Command::ExtractFilecoinG1Point => extract(Path::new(&args.srs_path)),
-        Command::UpdateWithRandomBeacon => update_with_random_beacon(Path::new(&args.srs_path)),
     };
 
     println!(

@@ -14,7 +14,7 @@
 // limitations under the License.
 use std::{
     fs::{self, DirEntry, File, ReadDir},
-    io::{Read, Seek, SeekFrom},
+    io::{Read, Seek, SeekFrom, Write},
     path::{Path, PathBuf},
 };
 
@@ -143,44 +143,30 @@ pub fn generate_toxic_waste(mut rng: impl RngCore + CryptoRng) -> Scalar {
 
     // Read random user input
     let mut user_input = String::new();
-    println!("\nPlease, hit your keyboard randomly then press [ENTER]. (This will not be the only source of entropy.)");
+    println!("\nPlease, provide external entropy (e.g. by hitting your keyboard randomly), then press [ENTER]");
     std::io::stdin()
         .read_line(&mut user_input)
         .expect("Failed to read user input");
     hasher.update(user_input);
 
     // In addition, get some random bytes from the OS
-    let mut os_input = [0u8; 512];
-    rng.try_fill_bytes(&mut os_input)
-        .expect("Could not fill bytes");
-    hasher.update(os_input);
-
-    // Hash it all together and use hash as seed for RNG
-    let digest: [u8; 32] = hasher.finalize()[0..32].try_into().unwrap();
-
-    Scalar::random(ChaCha20Rng::from_seed(digest))
-}
-
-/// Generates a scalar from external randomness provided by drand (sampled from
-/// a pre-committed round number)
-pub fn generate_toxic_waste_from_drand() -> Scalar {
-    let mut hasher = Blake2b512::new();
-
-    // Read external randomness input by the user
-    let mut user_input = String::new();
-    println!("\nStep 1/2: Please, paste the hex value of the RANDOMNESS BEACON from drand here\n(without any leading 0x)");
+    let mut answer = String::new();
+    print!("\nDo you also want to include randomness from your OS? [Y/n] ");
+    std::io::stdout().flush().unwrap();
     std::io::stdin()
-        .read_line(&mut user_input)
-        .expect("Failed to read user input");
-    hasher.update(user_input);
+        .read_line(&mut answer)
+        .expect("Failed to read answer");
 
-    // Read salt used in the commitment C to the round number N of drand
-    let mut user_input = String::new();
-    println!("\nStep 2/2: Please, paste the hex value of the SALT used in the commitment to the round number of drand here\n(without any leading 0x)");
-    std::io::stdin()
-        .read_line(&mut user_input)
-        .expect("Failed to read user input");
-    hasher.update(user_input);
+    match answer.trim().to_lowercase().as_str() {
+        "n" | "no" => println!("Skipping OS randomness..."),
+        _ => {
+            println!("Including OS randomness...");
+            let mut os_input = [0u8; 512];
+            rng.try_fill_bytes(&mut os_input)
+                .expect("Could not fill bytes");
+            hasher.update(os_input);
+        }
+    }
 
     // Hash it all together and use hash as seed for RNG
     let digest: [u8; 32] = hasher.finalize()[0..32].try_into().unwrap();

@@ -54,11 +54,6 @@ struct Args {
     /// SHA-256(round || salt)
     #[arg(short, long)]
     commitment: String,
-
-    /// Additionally verify the entire Drand chain from round 1 to the specified
-    /// round
-    #[arg(long, default_value_t = false)]
-    verify_chain: bool,
 }
 
 #[derive(Debug, Deserialize)]
@@ -96,25 +91,6 @@ fn verify_signature(round: u64, signature: &[u8], previous_signature: &[u8], pub
     );
 }
 
-/// Verifies the entire Drand chain from `start_round` to `end_round`.
-fn verify_chain(start_round: u64, end_round: u64) {
-    let mut previous_sig: Vec<u8> = Vec::new();
-
-    for round in start_round..=end_round {
-        if round % 100 == 0 || round == end_round {
-            println!("Round {}/{}", round, end_round);
-        }
-
-        let response = fetch_drand_round(round)
-            .unwrap_or_else(|_| panic!("Failed to fetch Drand round {round}."));
-        let signature = hex::decode(&response.signature)
-            .expect("Invalid signature format from Drand response.");
-        verify_signature(round, &signature, &previous_sig, DRAND_PUBLIC_KEY);
-        previous_sig = signature;
-    }
-    println!("Drand chain from {start_round} to {end_round} successfully verified!");
-}
-
 /// Verify that `commitment` opens to `round || salt`.
 ///
 /// Namely, assert that `commitment == SHA-256(round || salt)`,
@@ -144,10 +120,6 @@ fn main() {
     );
 
     let drand_response = fetch_drand_round(args.round).expect("Failed to fetch Drand round.");
-
-    if args.verify_chain {
-        verify_chain(1, args.round);
-    }
 
     let signature = hex::decode(&drand_response.signature).expect("Failed to decode signature.");
     let previous_sig = drand_response

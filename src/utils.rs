@@ -147,11 +147,11 @@ pub fn generate_toxic_waste(mut rng: impl RngCore + CryptoRng) -> Scalar {
     std::io::stdin()
         .read_line(&mut user_input)
         .expect("Failed to read user input");
-    hasher.update(user_input);
+    hasher.update(user_input.trim());
 
     // In addition, get some random bytes from the OS
     let mut answer = String::new();
-    print!("\nDo you also want to include randomness from your OS? [Y/n]\n(The recommended (default) option is [Y])");
+    print!("\nDo you also want to include randomness from your OS? (Recommended) [Y/n] ");
     std::io::stdout().flush().unwrap();
     std::io::stdin()
         .read_line(&mut answer)

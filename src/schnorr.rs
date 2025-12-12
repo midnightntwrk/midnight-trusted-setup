@@ -59,8 +59,8 @@ impl SchnorrProof {
 /// An update proof is a proof of knowledge of the dlog of h in base g, where
 /// g is [tau]_1 of the previous SRS and h is [tau']_1 of the new SRS
 pub struct UpdateProof {
-    pub(crate) g: G1Affine,
-    pub(crate) h: G1Affine,
+    pub g: G1Affine,
+    pub h: G1Affine,
     schnorr_proof: SchnorrProof,
 }
 

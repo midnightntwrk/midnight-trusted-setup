@@ -17,20 +17,14 @@ use std::path::Path;
 
 use clap::{Parser, Subcommand};
 use rand_core::OsRng;
-
-mod schnorr;
-use schnorr::UpdateProof;
-
-mod ceremony;
-use ceremony::{G1_SIZE, SRS};
-
-mod utils;
-use utils::{
-    derive_new_path, generate_toxic_waste, open_update_proof_dirs, read_g1_point_from_file,
+use srs::{
+    ceremony::{G1_SIZE, SRS},
+    filecoin::extract_g1_point_from_filecoin_srs,
+    schnorr::UpdateProof,
+    utils::{
+        derive_new_path, generate_toxic_waste, open_update_proof_dirs, read_g1_point_from_file,
+    },
 };
-
-mod filecoin;
-use filecoin::extract_g1_point_from_filecoin_srs;
 
 // Struct to represent command-line arguments
 #[derive(Debug, Parser)]

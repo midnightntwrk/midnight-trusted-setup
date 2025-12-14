@@ -137,34 +137,62 @@ pub fn derive_new_path(old_path: &Path) -> (PathBuf, PathBuf) {
 }
 
 /// Generates a scalar from various randomness sources
-pub fn generate_toxic_waste(mut rng: impl RngCore + CryptoRng) -> Scalar {
+pub fn generate_toxic_waste(
+    mut rng: impl RngCore + CryptoRng,
+    entropy: Option<String>,
+    os_randomness: Option<bool>,
+) -> Scalar {
     // Use Blake2b for combining output from different entropy sources
     let mut hasher = Blake2b512::new();
 
-    // Read random user input
+    // Read random user input (or get it from argument)
     let mut user_input = String::new();
-    println!("\nPlease, provide external entropy (e.g. by hitting your keyboard randomly), then press [ENTER]");
-    std::io::stdin()
-        .read_line(&mut user_input)
-        .expect("Failed to read user input");
+    if let Some(entropy) = entropy {
+        user_input = entropy;
+    } else {
+        println!("\nPlease, provide external entropy (e.g. by hitting your keyboard randomly), then press [ENTER]");
+        std::io::stdin()
+            .read_line(&mut user_input)
+            .expect("Failed to read user input");
+    }
     hasher.update(user_input.trim());
 
     // In addition, get some random bytes from the OS
-    let mut answer = String::new();
-    print!("\nDo you also want to include randomness from your OS? (Recommended) [Y/n] ");
-    std::io::stdout().flush().unwrap();
-    std::io::stdin()
-        .read_line(&mut answer)
-        .expect("Failed to read answer");
-
-    match answer.trim().to_lowercase().as_str() {
-        "n" | "no" => println!("Skipping OS randomness..."),
-        _ => {
+    match os_randomness {
+        // If true, we include OS randomness without asking
+        Some(true) => {
             println!("Including OS randomness...");
             let mut os_input = [0u8; 512];
             rng.try_fill_bytes(&mut os_input)
                 .expect("Could not fill bytes");
             hasher.update(os_input);
+        }
+
+        // 2. If false, skip it
+        Some(false) => {
+            println!("Skipping OS randomness...");
+        }
+
+        // 3. If None, ask the user (default behavior)
+        None => {
+            let mut answer = String::new();
+            print!("\nDo you also want to include randomness from your OS? (Recommended) [Y/n] ");
+            std::io::stdout().flush().unwrap();
+
+            std::io::stdin()
+                .read_line(&mut answer)
+                .expect("Failed to read answer");
+
+            match answer.trim().to_lowercase().as_str() {
+                "n" | "no" => println!("Skipping OS randomness..."),
+                _ => {
+                    println!("Including OS randomness...");
+                    let mut os_input = [0u8; 512];
+                    rng.try_fill_bytes(&mut os_input)
+                        .expect("Could not fill bytes");
+                    hasher.update(os_input);
+                }
+            }
         }
     }
 

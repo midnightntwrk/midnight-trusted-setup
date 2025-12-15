@@ -43,7 +43,14 @@ enum Command {
         log2_len: usize,
     },
     VerifyChain,
-    Update,
+    Update {
+        /// Optional entropy string to seed the RNG (if not provided, user will
+        /// be prompted)
+        entropy: Option<String>,
+        /// Whether to use OS randomness to seed the RNG (if not provided, user
+        /// will be prompted)
+        os_randomness: Option<bool>,
+    },
     ExtractFilecoinG1Point,
 }
 
@@ -71,12 +78,12 @@ fn verify_chain(last_srs_path: &Path) {
     println!("The chain of update proofs is correct!\n");
 }
 
-fn update(old_srs_path: &Path) {
+fn update(old_srs_path: &Path, entropy: Option<String>, os_randomness: Option<bool>) {
     println!("\nRe-randomizing the existing SRS...");
 
     let (new_srs_path, new_proof_path) = derive_new_path(old_srs_path);
 
-    let nu = generate_toxic_waste(OsRng);
+    let nu = generate_toxic_waste(OsRng, entropy, os_randomness);
 
     let mut srs = SRS::read_from_file(old_srs_path);
 
@@ -145,7 +152,10 @@ fn main() {
             verify_structure(Path::new(&args.srs_path), log2_len)
         }
         Command::VerifyChain => verify_chain(Path::new(&args.srs_path)),
-        Command::Update => update(Path::new(&args.srs_path)),
+        Command::Update {
+            entropy,
+            os_randomness,
+        } => update(Path::new(&args.srs_path), entropy, os_randomness),
         Command::ExtractFilecoinG1Point => extract(Path::new(&args.srs_path)),
     };
 

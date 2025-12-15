@@ -157,43 +157,24 @@ pub fn generate_toxic_waste(
     }
     hasher.update(user_input.trim());
 
-    // In addition, get some random bytes from the OS
-    match os_randomness {
-        // If true, we include OS randomness without asking
-        Some(true) => {
-            println!("Including OS randomness...");
-            let mut os_input = [0u8; 512];
-            rng.try_fill_bytes(&mut os_input)
-                .expect("Could not fill bytes");
-            hasher.update(os_input);
-        }
+    if os_randomness.unwrap_or_else(|| {
+        let mut answer = String::new();
+        print!("\nDo you also want to include randomness from your OS? (Recommended) [Y/n] ");
+        std::io::stdout().flush().unwrap();
 
-        // 2. If false, skip it
-        Some(false) => {
-            println!("Skipping OS randomness...");
-        }
+        std::io::stdin()
+            .read_line(&mut answer)
+            .expect("Failed to read answer");
 
-        // 3. If None, ask the user (default behavior)
-        None => {
-            let mut answer = String::new();
-            print!("\nDo you also want to include randomness from your OS? (Recommended) [Y/n] ");
-            std::io::stdout().flush().unwrap();
-
-            std::io::stdin()
-                .read_line(&mut answer)
-                .expect("Failed to read answer");
-
-            match answer.trim().to_lowercase().as_str() {
-                "n" | "no" => println!("Skipping OS randomness..."),
-                _ => {
-                    println!("Including OS randomness...");
-                    let mut os_input = [0u8; 512];
-                    rng.try_fill_bytes(&mut os_input)
-                        .expect("Could not fill bytes");
-                    hasher.update(os_input);
-                }
-            }
-        }
+        let answer = answer.trim().to_lowercase();
+        answer != "n" && answer != "no"
+    }) {
+        println!("Including OS randomness...");
+        let mut os_input = [0u8; 512];
+        rng.try_fill_bytes(&mut os_input).expect("512 bytes");
+        hasher.update(os_input);
+    } else {
+        println!("Skipping OS randomness...");
     }
 
     // Hash it all together and use hash as seed for RNG

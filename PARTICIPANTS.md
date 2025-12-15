@@ -35,3 +35,4 @@ SRS contribution.
 | Miguel Ambrona        | miguel-ambrona     | Shielded       | cd692910134beffea1695899bc8f12b8a280f205e65006302e7b9160320acf15 |
 | Antonio Nappa         | jeppojeps          | fuzzsociety.org| 41002310380b562ea65d531a271de72579c1de5c92dd288a5bd91608e8b2f516 |
 | Ricardo Rius          | riusricardo        | Midnight Foundation| 96c69db13c79517e3202694eda33db01edd33bd91246329ea24e80f523c9413b |
+| Masayuki Abe          | nanacov            | NTT            | aa6d576797c7d4ebb28caa1ed3920f7015da4ecc399e214d14c91bc821c5b37c |

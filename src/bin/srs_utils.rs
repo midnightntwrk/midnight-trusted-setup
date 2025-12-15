@@ -44,9 +44,11 @@ enum Command {
     },
     VerifyChain,
     Update {
-        /// Optional entropy string to seed the RNG (if not provided, user will be prompted)
+        /// Optional entropy string to seed the RNG (if not provided, user will
+        /// be prompted)
         entropy: Option<String>,
-        /// Whether to use OS randomness to seed the RNG (if not provided, user will be prompted)
+        /// Whether to use OS randomness to seed the RNG (if not provided, user
+        /// will be prompted)
         os_randomness: Option<bool>,
     },
     ExtractFilecoinG1Point,

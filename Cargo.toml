@@ -14,7 +14,7 @@ rand_chacha = "0.3.0"
 indicatif = "0.17.11"
 
 # drand verifier
-drand-verify = "0.5"
+drand-verify = "0.6"
 ureq = { version = "2.10", default-features = false, features = ["json", "tls"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"

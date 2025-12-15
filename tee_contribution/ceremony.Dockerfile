@@ -1,4 +1,6 @@
-FROM ubuntu:jammy-20251013 AS builder
+# Ubuntu base image with a specific sha256 digest for reproducibility.
+# This is ubuntu:jammy-20251013.
+FROM ubuntu@sha256:104ae83764a5119017b8e8d6218fa0832b09df65aae7d5a6de29a85d813da2fb AS builder
 
 ARG SNAPSHOT=20251013T000000Z
 ARG GITHUB_URL_PREFIX="https://github.com"
@@ -82,6 +84,7 @@ RUN git clone "${GITHUB_URL_PREFIX}/input-output-hk/trusted-setup-management-ser
 # Allows to compare the hashes calculated here with the one in the attestation.
 # It is also possible to copy the binairies from the /artifacts directory and run the 
 # hash calculation locally.
-FROM busybox:uclibc 
+# This is busybox:uclibc
+FROM busybox@sha256:48a4462d62e106f6ece30479d2b198714d33cab795b6b1ad365b3f2c04ad360a
 COPY --from=builder /artifacts /artifacts
 CMD ["/bin/sh", "-c", "cat /artifacts/hashes.txt"]

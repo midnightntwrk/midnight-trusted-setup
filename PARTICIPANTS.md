@@ -37,3 +37,4 @@ SRS contribution.
 | Ricardo Rius          | riusricardo        | Midnight Foundation| 96c69db13c79517e3202694eda33db01edd33bd91246329ea24e80f523c9413b |
 | Masayuki Abe          | nanacov            | NTT            | aa6d576797c7d4ebb28caa1ed3920f7015da4ecc399e214d14c91bc821c5b37c |
 | Jonathan Duchateau    | JoFrost            | IOG            | 35d66812707d05d25509331ef61c7e5ef754fbfb71d95010bd68d4c81a3775a4 |
+| Maxim Starodub        | mstarodub          | Optiver        | 778b122674e8df3ebb0b7c006c4ebfcb81dbce4ab41161028ce66e208a4f6ba0 |

@@ -39,3 +39,4 @@ SRS contribution.
 | Jonathan Duchateau    | JoFrost            | IOG            | 35d66812707d05d25509331ef61c7e5ef754fbfb71d95010bd68d4c81a3775a4 |
 | Maxim Starodub        | mstarodub          | Optiver        | 778b122674e8df3ebb0b7c006c4ebfcb81dbce4ab41161028ce66e208a4f6ba0 |
 | Reinhard Lüftenegger  | remalue            | Shielded       |6475a3d9352baa953798c3a0e1ac59f7470c836d3ed36cff3338316958f901a8 |
+| Julien Coolen         | jtcoolen           |                | a5787d39a7a40144521f50ccc6560095ac0c8449a69d405a62bcc85f0ed3d685 |

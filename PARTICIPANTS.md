@@ -40,3 +40,4 @@ SRS contribution.
 | Maxim Starodub        | mstarodub          | Optiver        | 778b122674e8df3ebb0b7c006c4ebfcb81dbce4ab41161028ce66e208a4f6ba0 |
 | Reinhard Lüftenegger  | remalue            | Shielded       |6475a3d9352baa953798c3a0e1ac59f7470c836d3ed36cff3338316958f901a8 |
 | Julien Coolen         | jtcoolen           |                | a5787d39a7a40144521f50ccc6560095ac0c8449a69d405a62bcc85f0ed3d685 |
+| Zhiyong Gong          | John-Gong-Math     | Shielded       | 234be7a4fed000e76786ee97dec47f3aea33b5340f66f1d7002acdb9da65580f |

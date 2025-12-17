@@ -1,9 +1,10 @@
 # Trusted Setup for PLONK over BLS12-381
 
 This is the official repository for the trusted-setup ceremony of the
-[Midnight Network](https://midnight.network/).
+[Midnight Network](https://midnight.network/). The ceremony ended on
+Dec 16 2025 (AoE).
 
-The outcome of this ceremony will be a so-called *powers-of-tau* structured
+The outcome of this ceremony is a so-called *powers-of-tau* structured
 reference string (SRS) over the BLS12-381 elliptic curve of length $2^{25}$
 (see our [wiki](WIKI.md) for more details on the type and length of the SRS).
 
@@ -12,15 +13,15 @@ The ceremony is based on the
 powers-of-tau SRS over BLS12-381 used on [Filecoin](https://filecoin.io/)
 and trusted by the Web3 community.
 
-During Midnight Network's ceremony, the Filecoin SRS will be updated 
+During Midnight Network's ceremony, the Filecoin SRS has been updated
 (i.e., re-randomized) multiple times by various participants. Each update
-generates not  only a new SRS but also an update proof, which proves that
-the previous SRS was used correctly in the update process. The chain of
-update proofs will be stored in the `proofs/` directory of this repository.
+generated not only a new SRS but also an update proof, which proves that
+the new SRS has been computed by re-randomizing the previous SRS (and not
+from scratch). The chain of update proofs is available in the `proofs/`
+directory of this repository.
 
 > [!IMPORTANT]
-> This ceremony is currently ongoing, until Dec 16 2025 (AoE), and you can 
-> be a participant! See the instructions below.
+> This ceremony ended on Dec 16 2025 (AoE), no more contributions are accepted.
 
 ## Prerequisites
 
@@ -39,7 +40,7 @@ cargo build --release
 cp ./target/release/srs_utils ./
 ```
 
-## Participate
+## Participate (Closed)
 
 1. Open a GitHub issue in this repository using the [Request to Participate in SRS
    Ceremony](https://github.com/midnightntwrk/midnight-trusted-setup/issues/new?template=request-participation.md)
@@ -118,12 +119,11 @@ See our [wiki](WIKI.md) for details on how to verify the validity of this
 point.
 
 ## End of the SRS ceremony
-The ceremony will end on Dec 16, 2025 (AoE), no more contributions will be 
-accepted after this date.
+The ceremony ended on Dec 16, 2025 (AoE), no more contributions are now
+accepted.
 
-When the ceremony is over, we will perform an additional iteration using a 
-randomness beacon as entropy source. This is to ensure that the final SRS 
-is unbiased.
+We are now about to perform one last additional iteration using a randomness
+beacon as entropy source. This is to ensure that the final SRS is unbiased.
 
 Concretely, the toxic waste that will be used in the last iteration will be 
 derived with `ChaCha20`, seeded with entropy from

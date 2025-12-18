@@ -42,4 +42,5 @@ SRS contribution.
 | Julien Coolen         | jtcoolen           |                | a5787d39a7a40144521f50ccc6560095ac0c8449a69d405a62bcc85f0ed3d685 |
 | Zhiyong Gong          | John-Gong-Math     | Shielded       | 234be7a4fed000e76786ee97dec47f3aea33b5340f66f1d7002acdb9da65580f |
 | David Nevado          | davidnevadoc       | Shielded       | 3091e87586364de93f2a28cbe93084644b1ba0c371686ab013170e1d0a46df99 |
-| Iñigo Querejeta Azurmendi | iquerejeta         | Shielded            | 6924e7f6d9857608a27bd185e3fc02eddd562bbcf3f6e4296719095ba968021e |
+| Iñigo Querejeta Azurmendi | iquerejeta     | Shielded       | 6924e7f6d9857608a27bd185e3fc02eddd562bbcf3f6e4296719095ba968021e |
+| Midnight Crypto Team  | mn-crypto          | Shielded       | df7a1e9fcd6d3f6e8ddd777914c40c44cd29777b769e608c0604fbfbe83121ce |

@@ -63,7 +63,7 @@ sudo dpkg -i azguestattestation1_1.1.0_amd64.deb
 ### Clone and Compile the AttestationClient
 
 ```bash
-# The attestation verifier is on a different repository. Run this in another terminal.
+# The attestation verifier is on a different repository. Please clone this in the same folder where you cloned the Midnight Trusted Setup.
 git clone https://github.com/input-output-hk/trusted-setup-management-server.git trusted-setup-server-tee
 cd trusted-setup-server-tee/attestation_verifier
 cmake . && make

@@ -32,22 +32,56 @@ its details:
 ```
 Official URL:   https://srs.midnight.network/current_srs/powers_of_tau
    File size:   3,221,225,856 bytes
- SHA-256 sum:   df7a1e9fcd6d3f6e8ddd777914c40c44cd29777b769e608c0604fbfbe83121ce
+  SHA256 sum:   df7a1e9fcd6d3f6e8ddd777914c40c44cd29777b769e608c0604fbfbe83121ce
 ```
 
 Find instructions [below](#verify-the-midnight-srs) on how to verify its
 validity.
 
-## Build the CLI
+## Build the CLI Tool
 
 After cloning the repository, build it, and copy the binary to the root
 folder of the repository with the commands:
 ```sh
 cargo build --release 
-cp ./target/release/srs_utils ./
+cp ./target/release/srs_utils ./target/release/drand_verifier ./
 ```
 
-## Participate (Closed)
+## Verify the Midnight SRS
+Anyone can verify the integrity of the Midnight SRS (please note the
+[hardware requirements](#hardware-requirements)).
+We invite any user of Midnight (and also the wider public) to do so.
+
+0. If you have not done so already, [build](#build-the-cli-tool) the official
+   CLI tool.
+
+1. Download the [Midnight SRS] (its size is about `3.2 GB`).
+
+2. Compute the SHA256 sum of the downloaded SRS, and compare it with the
+   [checksum](#midnight-srs) above.
+
+3. Verify the structural integrity of the SRS, and that it has the expected
+   length of $2^{25}$:
+   ```sh
+   ./srs_utils <PATH-TO-MIDNIGHT-SRS> verify-structure -l 25
+   ```
+
+4. Verify the chain of update proofs that links Midnight's SRS to
+   Filecoin's SRS:
+   ```sh
+   ./srs_utils <PATH-TO-MIDNIGHT-SRS> verify-chain
+   ```
+
+5. Verify that the final update was performed as declared in the
+   [end-of-ceremony section](#end-of-the-srs-ceremony). Find instructions
+   [below](#verification-of-the-last-iteration).
+
+6. (Optional). The chain of update proofs starts at Filecoin's
+   [G1 point](filecoin_srs_g1_point). See our [wiki](WIKI.md) for details on
+   how to verify the validity of this point.
+
+
+## Participate (Closed on Dec 16, 2025 - AoE)
 
 ### Prerequisites
 
@@ -55,26 +89,29 @@ cp ./target/release/srs_utils ./
 * A working Rust installation.
 
 ### Hardware requirements
+
 A machine with at least 8GB of RAM is required.
 
 ### Instructions
 
 1. Open a GitHub issue in this repository using the [Request to Participate in SRS
    Ceremony](https://github.com/midnightntwrk/midnight-trusted-setup/issues/new?template=request-participation.md)
-   template to request a participation slot. You will be assigned a participation number `N`
-   and will be notified via GitHub when your turn arrives.
+   template to request a participation slot. You will be assigned a participation
+   number `N` and will be notified via GitHub when your turn arrives.
 
 2. On your turn, download the [Midnight SRS]. You can optionally verify its
-   structure and `sha256sum` as explained [below](#verify-the-midnight-srs).
+   integrity by computing its SHA256 digest, comparing this value with the
+   corresponding checksum in `PARTICIPANTS.md`, and by running steps
+   [3., 4., and 6. above](#verify-the-midnight-srs).
 
 3. Re-randomize it with `./srs_utils <PATH-TO-DOWNLOADED-SRS> update`. This
    process will create 2 files: a file named `srs<N>` in the same location
    where you stored the downloaded SRS and a file named `proof<N>` in the
    `proofs/` directory.
 
-4. Compute the SHA256 digest of the updated SRS, e.g. with
-   `sha256sum <PATH-TO-SRS-N>`, and add a new row to `PARTICIPANTS.md` with
-   your name, GitHub handle, affiliation (optional), and SHA256 digest.
+4. Compute the SHA256 digest of the updated SRS, e.g., with
+   `sha256sum <PATH-TO-SRS-N>`. Add a new row to `PARTICIPANTS.md` with
+   your name, GitHub handle, affiliation (optional), and the SHA256 digest.
 
 5. Open a pull request with the `proof<N>` and `PARTICIPANTS.md` file (please
    make sure your GH account uses signed commits).
@@ -104,26 +141,6 @@ You may use our server to upload your updated SRS via SFTP. Simply run:
 sftp -v <YOUR_GITHUB_USERNAME>@sftp.trusted-setup.midnight.network
 put <PATH-TO-UPDATED-SRS> .
 ```
-
-## Verify the Midnight SRS
-
-After downloading the [Midnight SRS] (its size is about `3.2 GB`) and verifying
-its [checksum](#midnight-srs), you can verify that it is structurally correct
-and has the expected length of $2^{25}$ with:
-```sh
-./srs_utils <PATH-TO-MIDNIGHT-SRS> verify-structure -l 25
-```
-
-You can also verify the chain of update proofs that link the Midnight SRS to
-Filecoin's SRS. Simply run:
-
-```sh
-./srs_utils <PATH-TO-MIDNIGHT-SRS> verify-chain
-```
-
-This chain starts at Filecoin's [G1 point](filecoin_srs_g1_point).
-See our [wiki](WIKI.md) for details on how to verify the validity of this
-point.
 
 ## End of the SRS ceremony
 
@@ -197,10 +214,9 @@ the ceremony.
 
 ### Verification of the last iteration
 
-You can verify the final update using the `drand_verifier` binary.
-After compiling with `cargo build --release`, simply run:
-```
-./target/release/drand_verifier \
+You can verify the final update using the `drand_verifier` binary:
+```sh
+./drand_verifier \
   --round 5686659 \
   --salt 620f6c7da172dc454ec2361dc0673407 \
   --commitment 4282753f1830effbef453338577e682ecb2714a0de4ecf4998546f18e314f7f3

@@ -1,0 +1,15 @@
+{
+    "compliance-status": "azure-compliant-cvm",
+    "attestation-type": "sevsnpvm",
+    "vm_id": "ABD9EA99-D837-4F68-AD3E-C87C88006AFA",
+    "secureboot": true,
+    "kerneldebug-enabled": false,
+    "imageId": "02000000000000000000000000000000",
+    "microcode-svn": 219,
+    "snpfw-svn": 24,
+    "launch_measurement": "6a063be9dd79f6371c842e480f8dc3b5c725961344e57130e88c5adf49e8f7f6c79b75a5eb77fc769959f4aeb2f9401e",
+    "srs_hash": "35d66812707d05d25509331ef61c7e5ef754fbfb71d95010bd68d4c81a3775a4",
+    "proof_hash": "035710d5a41f36c595a7c4f6bd22a439bd522589ef6766d87db992cd869d29e6",
+    "srs_utils_hash": "d7a43a3fdadc84b7fc4172fc825f813a538f3e5d5c3a7a24fb0a01ce5812bf4e",
+    "srs_srv_hash": "8f67e82d3f114715f6df8e7462427ff2b6363c997971eaa695e54f22344f2f0f"
+}

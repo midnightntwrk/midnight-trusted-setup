@@ -1071,6 +1071,7 @@ dependencies = [
  "blstrs",
  "clap",
  "drand-verify",
+ "ff 0.13.1",
  "halo2curves",
  "hex",
  "indicatif",

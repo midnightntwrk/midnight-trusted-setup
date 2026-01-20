@@ -53,7 +53,8 @@ Replace `<k>` with the desired size parameter (from 1 to 25).
 
 ## Verification
 
-Verify the integrity of a downloaded extended SRS file:
+Verify the integrity of a downloaded extended SRS file, by computing its SHA256 checksum
+and comparing it with the one from the above table. E.g. on Linux:
 
 ```bash
 sha256sum <PATH-TO-EXTENDED-SRS>

@@ -46,7 +46,7 @@ Each extended SRS file includes:
 The extended SRS files can be downloaded from:
 
 ```
-http://midnight-s3-fileshare-dev-eu-west-1.s3.eu-west-1.amazonaws.com/bls_midnight_2p<k>
+https://srs.midnight.network/midnight-srs-2p<k>
 ```
 
 Replace `<k>` with the desired size parameter (from 1 to 25).
@@ -61,7 +61,7 @@ sha256sum <PATH-TO-EXTENDED-SRS>
 ```
 
 Verify consistency with respect to the official
-[powers-of-tau](https://srs.midnight.network/current_srs/powers_of_tau):
+[powers-of-tau](https://srs.midnight.network/midnight-powers-of-tau-2p25):
 
 ```bash
 cargo run --release --bin srs_consistency <PATH-TO-POWERS-OF-TAU> <PATH-TO-EXTENDED-SRS>

@@ -30,7 +30,7 @@ directory of this repository.
 The resulting SRS from this ceremony is available at [Midnight SRS], here are
 its details:
 ```
-Official URL:   https://srs.midnight.network/current_srs/powers_of_tau
+Official URL:   https://srs.midnight.network/midnight-powers-of-tau-2p25
    File size:   3,221,225,856 bytes
   SHA256 sum:   df7a1e9fcd6d3f6e8ddd777914c40c44cd29777b769e608c0604fbfbe83121ce
 ```
@@ -236,4 +236,4 @@ This command will:
    [`./proofs/proof38`](https://github.com/midnightntwrk/midnight-trusted-setup/blob/main/proofs/proof38))
    was performed with such `tau`.
 
-[Midnight SRS]: https://srs.midnight.network/current_srs/powers_of_tau
+[Midnight SRS]: https://srs.midnight.network/midnight-powers-of-tau-2p25

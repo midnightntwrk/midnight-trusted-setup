@@ -9,7 +9,7 @@ ff = "0.13"
 rand_core = "0.6"
 halo2curves = { version = "0.7.0", features = ["derive_serde"] }
 blake2 = "0.10.6"
-clap = { version = "4.5.26", features = ["derive"] }
+clap = { version = "4.5.54", features = ["derive"] }
 rayon = "1.10.0"
 rand_chacha = "0.3.0"
 indicatif = "0.17.11"

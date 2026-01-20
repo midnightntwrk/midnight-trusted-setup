@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 blstrs = { git = "https://github.com/davidnevadoc/blstrs", rev = "e6e4518" }
+ff = "0.13"
 rand_core = "0.6"
 halo2curves = { version = "0.7.0", features = ["derive_serde"] }
 blake2 = "0.10.6"

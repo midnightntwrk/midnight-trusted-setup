@@ -38,6 +38,10 @@ Official URL:   https://srs.midnight.network/current_srs/powers_of_tau
 Find instructions [below](#verify-the-midnight-srs) on how to verify its
 validity.
 
+Extended SRS files (containing both coefficient and Lagrange representations)
+derived from this official ceremony output are cataloged in
+[`MIDNIGHT_SRS_CATALOG.md`](MIDNIGHT_SRS_CATALOG.md).
+
 ## Build the CLI Tool
 
 After cloning the repository, build it, and copy the binary to the root

@@ -39,7 +39,7 @@ SRS files.
 ### Downloading the latest SRS
 
 There a public link to the
-[latest SRS](https://srs.midnight.network/current_srs/powers_of_tau) at each 
+[latest SRS](https://srs.midnight.network/midnight-powers-of-tau-2p25) at each 
 stage of the ceremony. After the ceremony is completed, the same link
 will reference the final SRS for long-term retrieval.
 

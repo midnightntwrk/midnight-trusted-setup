@@ -64,6 +64,45 @@ pub fn read_g1_point_from_file(path: &Path, offset: usize) -> G1Affine {
     read_g1_point(&bytes)
 }
 
+/// Compares `num_bytes` bytes from two files at specified offsets.
+///
+/// Offsets can be positive (from start) or negative (from end).
+///
+/// Returns `true` if the byte sequences match, `false` otherwise.
+pub fn compare_bytes(
+    path1: &Path,
+    path2: &Path,
+    offset1: i64,
+    offset2: i64,
+    num_bytes: usize,
+) -> bool {
+    let mut file1 = open_file(path1);
+    let mut file2 = open_file(path2);
+
+    let seek_point1 = if offset1 >= 0 {
+        SeekFrom::Start(offset1 as u64)
+    } else {
+        SeekFrom::End(offset1)
+    };
+
+    let seek_point2 = if offset2 >= 0 {
+        SeekFrom::Start(offset2 as u64)
+    } else {
+        SeekFrom::End(offset2)
+    };
+
+    file1.seek(seek_point1).expect("Seeking file1");
+    file2.seek(seek_point2).expect("Seeking file2");
+
+    let mut bytes1 = vec![0u8; num_bytes];
+    let mut bytes2 = vec![0u8; num_bytes];
+
+    file1.read_exact(&mut bytes1).expect("Reading file1");
+    file2.read_exact(&mut bytes2).expect("Reading file2");
+
+    bytes1 == bytes2
+}
+
 /// Returns n powers of the given scalar: 1, s, s^2, ..., s^(n-1)
 pub fn powers(s: &Scalar, n: usize) -> Vec<Scalar> {
     std::iter::successors(Some(Scalar::ONE), |p| Some(*p * s))

@@ -187,7 +187,7 @@ Note that Drand round `N = 5686659` was sampled on Dec 18, 2025 at around
 
 ### How we seeded the last iteration
 
-The following steps for seeding the last iteration (with the Dround entropy)
+The following steps for seeding the last iteration (with the Drand entropy)
 were designed and
 [declared](https://github.com/midnightntwrk/midnight-trusted-setup/commit/c1e700b299167db84e0b14c652a3bf8e8646b258)
 a week before the `5686659`-th Drand round was sampled.
@@ -231,7 +231,7 @@ This command will:
 2. Fetch the data associated to the `5686659`-th Drand round and validate
    its signature.
 3. Derive the scalar `tau` used in the last iteration, as detailed
-   [above](#how-we-seed-the-last-iteration).
+   [above](#how-we-seeded-the-last-iteration).
 4. Make sure that the last contribution (proved in file
    [`./proofs/proof38`](https://github.com/midnightntwrk/midnight-trusted-setup/blob/main/proofs/proof38))
    was performed with such `tau`.

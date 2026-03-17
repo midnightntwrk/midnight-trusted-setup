@@ -4,8 +4,8 @@ This document lists the available extended SRS files containing both
 coefficient and Lagrange representations for various sizes.
 
 Each extended SRS file includes:
-- `4` bytes representing the length `n` (in little-endian),
-- `n` G1 points in coefficient (monomial) basis: `[1, τ, τ², ..., τⁿ⁻¹]₁`,
+- `4` bytes representing the size `k` (in little-endian),
+- `n` G1 points in coefficient (monomial) basis: `[1, τ, τ², ..., τⁿ⁻¹]₁`, where `n = 2^k`,
 - `n` G1 points in Lagrange basis: `[L₀(τ), L₁(τ), ..., Lₙ₋₁(τ)]₁`,
 - `2` G2 points: `[1, τ]₂`.
 

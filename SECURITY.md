@@ -33,7 +33,7 @@ will send a more detailed response within an additional three (3) business days
 indicating the next steps in handling your report.
 
 If you've been unable to successfully draft a vulnerability report via GitHub
-or have not received a response during the alloted response window, please
+or have not received a response during the allotted response window, please
 reach out via the [Midnight foundation security contact email](mailto:security@midnight.foundation).
 
 After the initial reply to your report, the maintainers will endeavor to keep
